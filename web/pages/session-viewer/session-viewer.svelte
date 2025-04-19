@@ -1,4 +1,6 @@
 <script lang="ts">
+import ImageTile from "@/components/image-tile/image-tile.svelte";
+
 
 </script>
 
@@ -24,17 +26,12 @@
 </section>
 
 <section class="items">
-    <div class="image-item">
-        <img src="C:/Users/ngokn1/Pictures/alleyway.png" alt="missing"/>
-    </div>
-    <div class="image-item">
-        <img src="C:/Users/ngokn1/Pictures/carpethallway.png" alt="missing"/>
-    </div>
-    <div class="image-item">
-        <img src="C:/Users/ngokn1/Pictures/redstore.png" alt="missing"/>
-    </div>
+    <ImageTile img="C:/Users/ktkm/Pictures/Screenshots/Annotation 2023-02-06 201313.png"/>
+    <ImageTile img="C:/Users/ktkm/Pictures/Screenshots/giant.jpg"/>
+    <ImageTile img="C:/Users/ktkm/Pictures/Screenshots/Annotation 2023-02-07 200050.png"/>
 </section>
 
 <section class="items-controls">
-    <p><a href="javascript:void(0)">open</a></p>
+    <p><a href="javascript:void(0)">open with program 1</a></p>
+    <p><a href="javascript:void(0)">find in file explorer</a></p>
 </section>
