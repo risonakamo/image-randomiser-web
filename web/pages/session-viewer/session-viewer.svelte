@@ -24,9 +24,17 @@
 </section>
 
 <section class="items">
-
+    <div class="image-item">
+        <img src="C:/Users/ngokn1/Pictures/alleyway.png" alt="missing"/>
+    </div>
+    <div class="image-item">
+        <img src="C:/Users/ngokn1/Pictures/carpethallway.png" alt="missing"/>
+    </div>
+    <div class="image-item">
+        <img src="C:/Users/ngokn1/Pictures/redstore.png" alt="missing"/>
+    </div>
 </section>
 
 <section class="items-controls">
-
+    <p><a href="javascript:void(0)">open</a></p>
 </section>
