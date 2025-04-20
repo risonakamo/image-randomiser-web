@@ -1,7 +1,12 @@
 <script lang="ts">
+import {onMount} from "svelte";
+
 import ImageTile from "@/components/image-tile/image-tile.svelte";
+import {getTestSession} from "@/api/bridge";
 
-
+onMount(async ()=>{
+    console.log(await getTestSession());
+});
 </script>
 
 <style lang="sass">
