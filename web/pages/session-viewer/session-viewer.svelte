@@ -4,9 +4,26 @@ import {onMount} from "svelte";
 import ImageTile from "@/components/image-tile/image-tile.svelte";
 import {getTestSession} from "@/api/bridge";
 
-onMount(async ()=>{
-    console.log(await getTestSession());
+var session:RandomisationSession=$state({
+    id:"",
+    title:"",
+    position:0,
+    createdDate:0,
+    lastUpdateDate:0,
+    originDirs:[],
+    items:[],
 });
+var currentItems:RandomItem[]=$state([]);
+
+onMount(async ()=>{
+    session=await getTestSession();
+});
+
+/** consume from the session to set the current items */
+function generateItems():void
+{
+    currentItems=session.items.slice(session.position,session.position+10);
+}
 </script>
 
 <style lang="sass">
