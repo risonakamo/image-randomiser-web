@@ -1,5 +1,6 @@
 <script lang="ts">
 import {onMount} from "svelte";
+import _ from "lodash";
 
 import ImageTile from "@/components/image-tile/image-tile.svelte";
 import {getTestSession} from "@/api/bridge";
@@ -14,15 +15,40 @@ var session:RandomisationSession=$state({
     items:[],
 });
 var currentItems:RandomItem[]=$state([]);
+var generateAmount:number=$state(10);
 
 onMount(async ()=>{
     session=await getTestSession();
+    console.log(session);
+
+    generateItems();
 });
 
 /** consume from the session to set the current items */
 function generateItems():void
 {
-    currentItems=session.items.slice(session.position,session.position+10);
+    if (session.position>=session.items.length)
+    {
+        currentItems=[];
+        return;
+    }
+
+    currentItems=session.items.slice(session.position,session.position+generateAmount);
+}
+
+/** increment session position, generate new items. consumes generate amount,
+ *  setting a new generate amount */
+function nextItems():void
+{
+    session.position+=generateAmount;
+    generateAmount=_.random(8,15);
+    generateItems();
+}
+
+/** clicked next items button. execute next items */
+function onNextClick():void
+{
+    nextItems();
 }
 </script>
 
@@ -30,7 +56,7 @@ function generateItems():void
     @use "./session-viewer.sass"
 </style>
 
-<section class="controls">
+<section class="info">
     <h1>session title</h1>
     <ul>
         <li>created: 2025-02-28 13:40:34</li>
@@ -47,10 +73,14 @@ function generateItems():void
     </ul>
 </section>
 
+<section class="controls">
+    <a href="javascript:void(0)" onclick={onNextClick}>Next Items</a>
+</section>
+
 <section class="items">
-    <ImageTile img="C:/Users/ktkm/Pictures/Screenshots/Annotation 2023-02-06 201313.png"/>
-    <ImageTile img="C:/Users/ktkm/Pictures/Screenshots/giant.jpg"/>
-    <ImageTile img="C:/Users/ktkm/Pictures/Screenshots/Annotation 2023-02-07 200050.png"/>
+    {#each currentItems as item (item.path)}
+        <ImageTile img={item.path}/>
+    {/each}
 </section>
 
 <section class="items-controls">
