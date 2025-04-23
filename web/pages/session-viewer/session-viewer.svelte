@@ -49,7 +49,14 @@ function generateItems():void
  *  setting a new generate amount */
 function nextItems():void
 {
+    if (session.position>=session.items.length)
+    {
+        return;
+    }
+
     session.position+=generateAmount;
+    session.position=Math.min(session.position,session.items.length);
+
     generateAmount=_.random(generateAmountMin,generateAmountMax);
     generateItems();
 }
@@ -74,9 +81,9 @@ function onNextClick():void
         <li>items generated: {sessionPositionChange}</li>
         <li>folders:
             <ul>
-                <li>folder 1</li>
-                <li>folder 2</li>
-                <li>folder 3</li>
+                {#each session.originDirs as dir (dir)}
+                    <li>{dir.title} ({dir.path})</li>
+                {/each}
             </ul>
         </li>
     </ul>
