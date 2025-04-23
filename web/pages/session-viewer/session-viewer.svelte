@@ -2,8 +2,12 @@
 import {onMount} from "svelte";
 import _ from "lodash";
 
+import {formatTime} from "@/lib/utils";
 import ImageTile from "@/components/image-tile/image-tile.svelte";
 import {getTestSession} from "@/api/bridge";
+
+const generateAmountMin:number=10;
+const generateAmountMax:number=20;
 
 var session:RandomisationSession=$state({
     id:"",
@@ -15,7 +19,12 @@ var session:RandomisationSession=$state({
     items:[],
 });
 var currentItems:RandomItem[]=$state([]);
-var generateAmount:number=$state(10);
+var generateAmount:number=$state(_.random(generateAmountMin,generateAmountMax));
+
+// initial session number on first load. to track number of items advanced so far
+const initialSessionPosition:number=session.position;
+
+var sessionPositionChange:number=$derived(session.position-initialSessionPosition);
 
 onMount(async ()=>{
     session=await getTestSession();
@@ -41,7 +50,7 @@ function generateItems():void
 function nextItems():void
 {
     session.position+=generateAmount;
-    generateAmount=_.random(8,15);
+    generateAmount=_.random(generateAmountMin,generateAmountMax);
     generateItems();
 }
 
@@ -59,10 +68,10 @@ function onNextClick():void
 <section class="info">
     <h1>session title</h1>
     <ul>
-        <li>created: 2025-02-28 13:40:34</li>
-        <li>updated: 2025-02-28 13:40:34</li>
-        <li>progress: 20/100</li>
-        <li>items generated: 20</li>
+        <li>created: {formatTime(session.createdDate)}</li>
+        <li>updated: {formatTime(session.lastUpdateDate)}</li>
+        <li>progress: {session.position}/{session.items.length}</li>
+        <li>items generated: {sessionPositionChange}</li>
         <li>folders:
             <ul>
                 <li>folder 1</li>
