@@ -25,7 +25,11 @@ var currentItems:RandomItem[]=$state([]);
 /** the next amount of items to generate */
 var generateAmount:number=$state(_.random(generateAmountMin,generateAmountMax));
 
+/** selectable program names from backend */
 var programsList:string[]=$state([]);
+
+/** path of current selected item */
+var selectedItem:string|undefined=$state(undefined);
 
 /** initial session number on first load. to track number of items advanced so far */
 const initialSessionPosition:number=session.position;
@@ -83,6 +87,12 @@ function onTestOpenProgram(program:string)
         launchItem(currentItems[0].path,program);
     };
 }
+
+/** clicked tile. set the selected item */
+function onImageTileClick(imgPath:string):void
+{
+    selectedItem=imgPath;
+}
 </script>
 
 <style lang="sass">
@@ -112,7 +122,8 @@ function onTestOpenProgram(program:string)
 
 <section class="items">
     {#each currentItems as item (item.path)}
-        <ImageTile img={item.path}/>
+        <ImageTile img={item.path} selected={item.path==selectedItem}
+            onclick={onImageTileClick}/>
     {/each}
 </section>
 
