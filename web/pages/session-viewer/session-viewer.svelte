@@ -4,7 +4,7 @@ import _ from "lodash";
 
 import {formatTime} from "@/lib/utils";
 import ImageTile from "@/components/image-tile/image-tile.svelte";
-import {getTestSession} from "@/api/bridge";
+import {getTestSession, launchItem} from "@/api/bridge";
 
 const generateAmountMin:number=10;
 const generateAmountMax:number=20;
@@ -66,6 +66,12 @@ function onNextClick():void
 {
     nextItems();
 }
+
+/** clicked open with test program */
+function onTestOpenProgram():void
+{
+    launchItem(currentItems[0].path,"Chrome");
+}
 </script>
 
 <style lang="sass">
@@ -100,6 +106,9 @@ function onNextClick():void
 </section>
 
 <section class="items-controls">
-    <p><a href="javascript:void(0)">open with program 1</a></p>
+    <p><a href="javascript:void(0)" onclick={onTestOpenProgram}>
+        open with program test
+    </a></p>
+
     <p><a href="javascript:void(0)">find in file explorer</a></p>
 </section>

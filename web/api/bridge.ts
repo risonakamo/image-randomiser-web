@@ -1,5 +1,6 @@
 // backend api funcs
 
 export const {
-    getTestSession
+    getTestSession,
+    launchItem,
 }=((window as any).electron as Bridge);
