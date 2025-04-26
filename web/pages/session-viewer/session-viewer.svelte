@@ -4,7 +4,7 @@ import _ from "lodash";
 
 import {formatTime} from "@/lib/utils";
 import ImageTile from "@/components/image-tile/image-tile.svelte";
-import {getTestSession, launchItem} from "@/api/bridge";
+import {getPrograms, getTestSession, launchItem} from "@/api/bridge";
 
 const generateAmountMin:number=10;
 const generateAmountMax:number=20;
@@ -18,12 +18,19 @@ var session:RandomisationSession=$state({
     originDirs:[],
     items:[],
 });
+
+/** the current items showing on the screen */
 var currentItems:RandomItem[]=$state([]);
+
+/** the next amount of items to generate */
 var generateAmount:number=$state(_.random(generateAmountMin,generateAmountMax));
 
-// initial session number on first load. to track number of items advanced so far
+var programsList:string[]=$state([]);
+
+/** initial session number on first load. to track number of items advanced so far */
 const initialSessionPosition:number=session.position;
 
+/** works as the total number of items generated */
 var sessionPositionChange:number=$derived(session.position-initialSessionPosition);
 
 onMount(async ()=>{
@@ -31,6 +38,8 @@ onMount(async ()=>{
     console.log(session);
 
     generateItems();
+
+    programsList=await getPrograms();
 });
 
 /** consume from the session to set the current items */
@@ -67,10 +76,12 @@ function onNextClick():void
     nextItems();
 }
 
-/** clicked open with test program */
-function onTestOpenProgram():void
+/** clicked to launch with program */
+function onTestOpenProgram(program:string)
 {
-    launchItem(currentItems[0].path,"Chrome");
+    return ()=>{
+        launchItem(currentItems[0].path,program);
+    };
 }
 </script>
 
@@ -106,9 +117,11 @@ function onTestOpenProgram():void
 </section>
 
 <section class="items-controls">
-    <p><a href="javascript:void(0)" onclick={onTestOpenProgram}>
-        open with program test
-    </a></p>
+    {#each programsList as program}
+        <p><a href="javascript:void(0)" onclick={onTestOpenProgram(program)}>
+            open with: {program}
+        </a></p>
+    {/each}
 
     <p><a href="javascript:void(0)">find in file explorer</a></p>
 </section>
