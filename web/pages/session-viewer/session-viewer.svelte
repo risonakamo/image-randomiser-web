@@ -80,11 +80,18 @@ function onNextClick():void
     nextItems();
 }
 
-/** clicked to launch with program */
-function onTestOpenProgram(program:string)
+/** triggered open with program. open the currently selected item with the corresponding
+ *  program
+ */
+function onOpenWithProgram(program:string)
 {
     return ()=>{
-        launchItem(currentItems[0].path,program);
+        if (!selectedItem)
+        {
+            return;
+        }
+
+        launchItem(selectedItem,program);
     };
 }
 
@@ -129,7 +136,7 @@ function onImageTileClick(imgPath:string):void
 
 <section class="items-controls">
     {#each programsList as program}
-        <p><a href="javascript:void(0)" onclick={onTestOpenProgram(program)}>
+        <p><a href="javascript:void(0)" onclick={onOpenWithProgram(program)}>
             open with: {program}
         </a></p>
     {/each}
