@@ -49,6 +49,7 @@ export default defineConfig({
         rollupOptions:{
             input:{
                 "session-viewer":`${__dirname}/web/html/session-viewer.html`,
+                "session-create":`${__dirname}/web/html/session-create.html`,
             },
 
             onLog(level:LogLevel,log:RollupLog,handler:LogHandler):void
