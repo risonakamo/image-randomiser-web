@@ -4,6 +4,10 @@
 
 <h1>Create Session</h1>
 
+<div class="drop-zone">
+
+</div>
+
 <div class="selected-items">
     <p>Selected Items:</p>
     <ul>
