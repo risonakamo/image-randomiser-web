@@ -1,33 +1,51 @@
 <script lang="ts">
+import _ from "lodash";
+
 import {absPath} from "@/api/bridge";
 
+/** paths of selected items */
+var selecteditems:string[]=$state([]);
+
 var dragCounter:number=$state(0);
+
 var draggedOver:boolean=$derived(dragCounter>0);
 
+/** dropped an item. add it to selected items after converting it into normal file path */
 function onDrop(e:DragEvent):void
 {
     e.preventDefault();
-    console.log("drop",e);
-    console.log(absPath(e.dataTransfer!.files[0]));
+
+    if (!e.dataTransfer?.files.length)
+    {
+        return;
+    }
+
+    const filePaths:string[]=absPath(Array.from(e.dataTransfer.files));
+
+    selecteditems=_.uniq(_.concat(selecteditems,filePaths));
 }
 
+/** default drag event */
 function onDragIn(e:DragEvent):void{
     e.preventDefault();
     dragCounter++;
 }
 
+/** default drag event */
 function onDragOut(e:DragEvent):void
 {
     e.preventDefault();
     dragCounter--;
 }
 
+/** default drag event */
 function onDragEnd(e:DragEvent):void
 {
     e.preventDefault();
     dragCounter=0;
 }
 
+/** default drag event */
 function onDragOver(e:DragEvent):void
 {
     e.preventDefault();
@@ -49,9 +67,9 @@ function onDragOver(e:DragEvent):void
 <div class="selected-items">
     <p>Selected Items:</p>
     <ul>
-        <li>item 1</li>
-        <li>item 2</li>
-        <li>item 3</li>
+        {#each selecteditems as item (item)}
+            <li>{item}</li>
+        {/each}
     </ul>
 </div>
 
