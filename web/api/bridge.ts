@@ -4,5 +4,5 @@ export const {
     getTestSession,
     launchItem,
     getPrograms,
-    absPath,
+    absPathDirs,
 }=((window as any).electron as Bridge);
