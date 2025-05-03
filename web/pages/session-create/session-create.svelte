@@ -1,7 +1,8 @@
 <script lang="ts">
 import _ from "lodash";
+import {onMount} from "svelte";
 
-import {absPathDirs} from "@/api/bridge";
+import {absPathDirs, getSessions, newSession} from "@/api/bridge";
 
 /** paths of selected items */
 var selecteditems:string[]=$state([]);
@@ -9,6 +10,10 @@ var selecteditems:string[]=$state([]);
 var dragCounter:number=$state(0);
 
 var draggedOver:boolean=$derived(dragCounter>0);
+
+onMount(async ()=>{
+    console.log(await getSessions());
+})
 
 /** dropped an item. add it to selected items after converting it into normal file path */
 async function onDrop(e:DragEvent):Promise<void>
@@ -60,6 +65,14 @@ function onDeleteItem(item:string)
         });
     };
 }
+
+/** clicked create. send request to create session. on complete, change page to session
+ *  select */
+async function onCreateClick():Promise<void>
+{
+    await newSession($state.snapshot(selecteditems),"temp title");
+    console.log(await getSessions());
+}
 </script>
 
 <style lang="sass">
@@ -87,5 +100,5 @@ function onDeleteItem(item:string)
 </div>
 
 <h2>
-    <a href="javascript:void(0)">Create</a>
+    <a href="javascript:void(0)" onclick={onCreateClick}>Create</a>
 </h2>
