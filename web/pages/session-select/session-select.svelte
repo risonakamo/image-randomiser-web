@@ -21,6 +21,11 @@ function onSessionDuplicate(session:RandomisationSession,title:string)
 }
 </script>
 
+<div class="controls">
+    <h2><a href="./session-create.html">create session</a></h2>
+    <h2><a href="javascript:void(0)">reset storage</a></h2>
+</div>
+
 <div class="sessions">
     {#each sessions as session (session.id)}
         <SessionBox session={session} ondelete={onSessionDelete}

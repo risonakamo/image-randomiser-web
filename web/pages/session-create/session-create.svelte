@@ -7,13 +7,13 @@ import {absPathDirs, getSessions, newSession} from "@/api/bridge";
 /** paths of selected items */
 var selecteditems:string[]=$state([]);
 
+/** basic drag detection vars */
 var dragCounter:number=$state(0);
-
 var draggedOver:boolean=$derived(dragCounter>0);
 
 onMount(async ()=>{
-    console.log(await getSessions());
-})
+
+});
 
 /** dropped an item. add it to selected items after converting it into normal file path */
 async function onDrop(e:DragEvent):Promise<void>
@@ -71,7 +71,7 @@ function onDeleteItem(item:string)
 async function onCreateClick():Promise<void>
 {
     await newSession($state.snapshot(selecteditems),"temp title");
-    console.log(await getSessions());
+    window.location.href="session-select.html";
 }
 </script>
 
