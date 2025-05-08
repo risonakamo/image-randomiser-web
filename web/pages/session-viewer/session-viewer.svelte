@@ -32,13 +32,14 @@ var programsList:string[]=$state([]);
 var selectedItem:string|undefined=$state(undefined);
 
 /** initial session number on first load. to track number of items advanced so far */
-const initialSessionPosition:number=session.position;
+var initialSessionPosition:number=0;
 
 /** works as the total number of items generated */
 var sessionPositionChange:number=$derived(session.position-initialSessionPosition);
 
 onMount(async ()=>{
     session=await getTestSession();
+    initialSessionPosition=session.position;
     console.log(session);
 
     generateItems();

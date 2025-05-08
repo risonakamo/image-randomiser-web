@@ -50,6 +50,7 @@ export default defineConfig({
             input:{
                 "session-viewer":`${__dirname}/web/html/session-viewer.html`,
                 "session-create":`${__dirname}/web/html/session-create.html`,
+                "session-select":`${__dirname}/web/html/session-select.html`,
             },
 
             onLog(level:LogLevel,log:RollupLog,handler:LogHandler):void
