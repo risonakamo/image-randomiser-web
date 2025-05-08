@@ -2,14 +2,25 @@
 import _ from "lodash";
 import {onMount} from "svelte";
 
-import {absPathDirs, getSessions, newSession} from "@/api/bridge";
+import {absPathDirs, newSession} from "@/api/bridge";
 
 /** paths of selected items */
 var selecteditems:string[]=$state([]);
 
 /** basic drag detection vars */
 var dragCounter:number=$state(0);
+
+var titleText:string=$state("");
+
 var draggedOver:boolean=$derived(dragCounter>0);
+var createDisabled:boolean=$derived.by(()=>{
+    if (!titleText.trim().length)
+    {
+        return true;
+    }
+
+    return false;
+});
 
 onMount(async ()=>{
 
@@ -70,7 +81,18 @@ function onDeleteItem(item:string)
  *  select */
 async function onCreateClick():Promise<void>
 {
-    await newSession($state.snapshot(selecteditems),"temp title");
+    var title:string=titleText.trim();
+
+    if (!title.length)
+    {
+        title="no title";
+    }
+
+    await newSession(
+        $state.snapshot(selecteditems),
+        title,
+    );
+
     window.location.href="session-select.html";
 }
 </script>
@@ -80,6 +102,10 @@ async function onCreateClick():Promise<void>
 </style>
 
 <h1>Create Session</h1>
+
+<p>
+    title:<input type="text" bind:value={titleText}/>
+</p>
 
 <div class="drop-zone" ondrop={onDrop} ondragover={onDragOver} ondragenter={onDragIn}
     ondragleave={onDragOut} ondragend={onDragEnd}
@@ -102,3 +128,5 @@ async function onCreateClick():Promise<void>
 <h2>
     <a href="javascript:void(0)" onclick={onCreateClick}>Create</a>
 </h2>
+
+<a href="./session-select.html">Back to Session Select</a>
