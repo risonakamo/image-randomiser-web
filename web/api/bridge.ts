@@ -7,4 +7,6 @@ export const {
     absPathDirs,
     newSession,
     getSessions,
+    deleteSession,
+    duplicateSession,
 }=((window as any).electron as Bridge);

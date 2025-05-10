@@ -1,7 +1,7 @@
 <script lang="ts">
 import {onMount} from "svelte";
 
-import {getSessions} from "@/api/bridge";
+import {deleteSession, duplicateSession, getSessions} from "@/api/bridge";
 import SessionBox from "@/components/session-box/session-box.svelte";
 
 var sessions:RandomisationSession[]=$state([]);
@@ -10,14 +10,16 @@ onMount(async ()=>{
     sessions=await getSessions();
 });
 
-function onSessionDelete(session:RandomisationSession)
+/** call to delete the session. update session list with result */
+async function onSessionDelete(session:RandomisationSession)
 {
-
+    sessions=await deleteSession(session.id);
 }
 
-function onSessionDuplicate(session:RandomisationSession,title:string)
+/** call backend to duplicate the session. update list with result */
+async function onSessionDuplicate(session:RandomisationSession,title:string)
 {
-
+    sessions=await duplicateSession(session.id,title);
 }
 </script>
 
