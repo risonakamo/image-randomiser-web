@@ -9,4 +9,5 @@ export const {
     getSessions,
     deleteSession,
     duplicateSession,
+    getItemCount,
 }=((window as any).electron as Bridge);

@@ -2,7 +2,7 @@
 import _ from "lodash";
 import {onMount} from "svelte";
 
-import {absPathDirs, newSession} from "@/api/bridge";
+import {absPathDirs, getItemCount, newSession} from "@/api/bridge";
 
 /** paths of selected items */
 var selecteditems:string[]=$state([]);
@@ -10,20 +10,23 @@ var selecteditems:string[]=$state([]);
 /** basic drag detection vars */
 var dragCounter:number=$state(0);
 
+/** value of title input text box */
 var titleText:string=$state("");
 
-var draggedOver:boolean=$derived(dragCounter>0);
-var createDisabled:boolean=$derived.by(()=>{
-    if (!titleText.trim().length)
-    {
-        return true;
-    }
+// var draggedOver:boolean=$derived(dragCounter>0);
 
-    return false;
-});
+/** current items count. updated async by effect */
+var itemsCount:number=$state(0);
 
-onMount(async ()=>{
+var createDisabled:boolean=$derived(itemsCount==0);
 
+// get items count on selected items changing
+$effect(()=>{
+    (async ()=>{
+        itemsCount=await getItemCount(
+            $state.snapshot(selecteditems),
+        );
+    })();
 });
 
 /** dropped an item. add it to selected items after converting it into normal file path */
@@ -114,7 +117,7 @@ async function onCreateClick():Promise<void>
 </div>
 
 <div class="selected-items">
-    <p>Selected Items:</p>
+    <p>Selected Folders:</p>
     <ul>
         {#each selecteditems as item (item)}
             <li>
@@ -125,8 +128,12 @@ async function onCreateClick():Promise<void>
     </ul>
 </div>
 
+<div class="info">
+    <p>number items: {itemsCount}</p>
+</div>
+
 <h2>
-    <a href="javascript:void(0)" onclick={onCreateClick}>Create</a>
+    <button onclick={onCreateClick} disabled={createDisabled}>Create</button>
 </h2>
 
 <a href="./session-select.html">Back to Session Select</a>
