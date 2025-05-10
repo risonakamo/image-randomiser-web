@@ -3,8 +3,15 @@ import {onMount} from "svelte";
 
 import {deleteSession, duplicateSession, getSessions} from "@/api/bridge";
 import SessionBox from "@/components/session-box/session-box.svelte";
+import _ from "lodash";
 
 var sessions:RandomisationSession[]=$state([]);
+
+var sortedSessions:RandomisationSession[]=$derived.by(()=>{
+    return _.sortBy(sessions,(session:RandomisationSession):number=>{
+        return session.lastUpdateDate;
+    }).toReversed();
+});
 
 onMount(async ()=>{
     sessions=await getSessions();
@@ -29,7 +36,7 @@ async function onSessionDuplicate(session:RandomisationSession,title:string)
 </div>
 
 <div class="sessions">
-    {#each sessions as session (session.id)}
+    {#each sortedSessions as session (session.id)}
         <SessionBox session={session} ondelete={onSessionDelete}
             onduplicate={onSessionDuplicate}/>
     {/each}

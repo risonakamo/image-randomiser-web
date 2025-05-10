@@ -2,6 +2,7 @@
 // session info box appearing on session select page
 
 import {createSessionTitle} from "@/lib/session";
+import {formatTime} from "@/lib/utils";
 
 var {
     session,
@@ -92,8 +93,8 @@ function h_duplicate(e:MouseEvent):void
         {/if}
     </h2>
     <h3>{session.id}</h3>
-    <p>created: {session.createdDate}</p>
-    <p>updated: {session.lastUpdateDate}</p>
+    <p>created: {formatTime(session.createdDate)}</p>
+    <p>updated: {formatTime(session.lastUpdateDate)}</p>
     <p>progress: {session.position}/{session.items.length}</p>
     <p>items:</p>
     <ul>
