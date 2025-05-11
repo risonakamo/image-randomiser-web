@@ -4,7 +4,7 @@ import _ from "lodash";
 
 import {formatTime} from "@/lib/utils";
 import ImageTile from "@/components/image-tile/image-tile.svelte";
-import {getPrograms, getTestSession, launchItem} from "@/api/bridge";
+import {getPrograms, getSession, launchItem} from "@/api/bridge";
 import {getSessionViewerArgs} from "@/lib/url-query";
 
 const generateAmountMin:number=10;
@@ -41,7 +41,21 @@ var sessionPositionChange:number=$derived(session.position-initialSessionPositio
 onMount(async ()=>{
     const pageArgs:SessionViewerArgs=getSessionViewerArgs();
 
-    session=await getTestSession();
+    if (!pageArgs.sessionId)
+    {
+        console.error("no session id");
+        return;
+    }
+
+    const gotSession:RandomisationSession|undefined=await getSession(pageArgs.sessionId);
+
+    if (!gotSession)
+    {
+        console.error("tried to load session, but couldn't find");
+        return;
+    }
+
+    session=gotSession;
     initialSessionPosition=session.position;
     console.log(session);
 
