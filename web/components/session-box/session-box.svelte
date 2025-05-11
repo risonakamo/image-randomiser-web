@@ -2,6 +2,7 @@
 // session info box appearing on session select page
 
 import {createSessionTitle} from "@/lib/session";
+import {createSessionViewerUrl} from "@/lib/url-query";
 import {formatTime} from "@/lib/utils";
 
 var {
@@ -36,6 +37,8 @@ var duplicateButtonText:string=$derived.by(()=>{
 
     return "duplicate";
 });
+
+var viewerUrl:string=$derived(createSessionViewerUrl(session.id));
 
 /** clicked delete button. call delete event with the session */
 function h_delete(e:MouseEvent):void
@@ -87,7 +90,7 @@ function h_duplicate(e:MouseEvent):void
 <div class="session-box">
     <h2>
         {#if !sessionComplete}
-            <a href="javascript:void(0)">{session.title}</a>
+            <a href={viewerUrl}>{session.title}</a>
         {:else}
             <s>{session.title}</s>
         {/if}

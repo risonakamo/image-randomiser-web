@@ -5,6 +5,7 @@ import _ from "lodash";
 import {formatTime} from "@/lib/utils";
 import ImageTile from "@/components/image-tile/image-tile.svelte";
 import {getPrograms, getTestSession, launchItem} from "@/api/bridge";
+import {getSessionViewerArgs} from "@/lib/url-query";
 
 const generateAmountMin:number=10;
 const generateAmountMax:number=20;
@@ -38,6 +39,8 @@ var initialSessionPosition:number=0;
 var sessionPositionChange:number=$derived(session.position-initialSessionPosition);
 
 onMount(async ()=>{
+    const pageArgs:SessionViewerArgs=getSessionViewerArgs();
+
     session=await getTestSession();
     initialSessionPosition=session.position;
     console.log(session);
