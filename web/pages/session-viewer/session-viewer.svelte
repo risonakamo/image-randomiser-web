@@ -118,6 +118,18 @@ function onImageTileClick(imgPath:string):void
 {
     selectedItem=imgPath;
 }
+
+/** double clicked image tile. open the path with the 1st program in the program list */
+function onImageTileDbClick(imgPath:string):void
+{
+    if (!programsList.length)
+    {
+        console.error("couldn't open file - no programs");
+        return;
+    }
+
+    launchItem(imgPath,programsList[0]);
+}
 </script>
 
 <style lang="sass">
@@ -148,7 +160,7 @@ function onImageTileClick(imgPath:string):void
 <section class="items">
     {#each currentItems as item (item.path)}
         <ImageTile img={item.path} selected={item.path==selectedItem}
-            onclick={onImageTileClick}/>
+            onclick={onImageTileClick} ondoubleclick={onImageTileDbClick}/>
     {/each}
 </section>
 
