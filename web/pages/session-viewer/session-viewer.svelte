@@ -147,6 +147,8 @@ function onFindFileExplore():void
     @use "./session-viewer.sass"
 </style>
 
+<a href="./session-select.html">Back to Session Select</a>
+
 <section class="info">
     <h1>session title</h1>
     <ul>
