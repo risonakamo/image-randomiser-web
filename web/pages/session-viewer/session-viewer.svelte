@@ -4,7 +4,7 @@ import _ from "lodash";
 
 import {formatTime} from "@/lib/utils";
 import ImageTile from "@/components/image-tile/image-tile.svelte";
-import {getPrograms, getSession, launchItem} from "@/api/bridge";
+import {getPrograms, getSession, launchItem, openFileExplorer} from "@/api/bridge";
 import {getSessionViewerArgs} from "@/lib/url-query";
 
 const generateAmountMin:number=10;
@@ -130,6 +130,17 @@ function onImageTileDbClick(imgPath:string):void
 
     launchItem(imgPath,programsList[0]);
 }
+
+/** clicked find in file explorer. trigger find in file explorer for the current item */
+function onFindFileExplore():void
+{
+    if (!selectedItem)
+    {
+        return;
+    }
+
+    openFileExplorer(selectedItem);
+}
 </script>
 
 <style lang="sass">
@@ -171,5 +182,5 @@ function onImageTileDbClick(imgPath:string):void
         </a></p>
     {/each}
 
-    <p><a href="javascript:void(0)">find in file explorer</a></p>
+    <p><a href="javascript:void(0)" onclick={onFindFileExplore}>find in file explorer</a></p>
 </section>

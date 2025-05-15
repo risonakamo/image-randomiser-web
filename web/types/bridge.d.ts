@@ -13,6 +13,7 @@ interface Bridge
     duplicateSession(duplicateId:string,title:string):Promise<RandomisationSession[]>
     getItemCount(folders:string[]):Promise<number>
     getSession(sessionId:string):Promise<RandomisationSession|undefined>
+    openFileExplorer(item:string):Promise<void>
 }
 
 /** random session */

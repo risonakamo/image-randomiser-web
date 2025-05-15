@@ -11,4 +11,5 @@ export const {
     duplicateSession,
     getItemCount,
     getSession,
+    openFileExplorer,
 }=((window as any).electron as Bridge);
