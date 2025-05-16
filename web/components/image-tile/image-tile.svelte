@@ -5,13 +5,13 @@ const {
     onclick=undefined,
     ondoubleclick=undefined,
 }:{
-    // path to img
-    img:string
+    // img info
+    img:RandomItem
     selected?:boolean
 
     // click event provides img path
-    onclick?(img:string):void
-    ondoubleclick?(img:string):void
+    onclick?(img:RandomItem):void
+    ondoubleclick?(img:RandomItem):void
 }=$props();
 
 var isWide:boolean=$state(false);
@@ -62,7 +62,7 @@ function onImageLoad():void
 
 <div class="image-item" draggable={false} class:selected={selected} onclick={onTileClick}
     ondblclick={onDoubleClick}>
-    <img src={img} alt="missing" draggable={true} bind:this={imageRef}
+    <img src={img.path} alt="missing" draggable={true} bind:this={imageRef}
         onload={onImageLoad} class:wide-fit={isWide}
         class:tall-fit={isTall} class:loading={isLoading}/>
 </div>

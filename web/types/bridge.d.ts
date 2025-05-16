@@ -49,6 +49,9 @@ interface RandomItem
     // filepath to the item. also a unique id
     path:string
 
+    // filename
+    name:string
+
     // parent folder
     parent:string
 }

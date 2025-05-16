@@ -99,8 +99,7 @@ function onNextClick():void
 }
 
 /** triggered open with program. open the currently selected item with the corresponding
- *  program
- */
+ *  program */
 function onOpenWithProgram(program:string)
 {
     return ()=>{
@@ -114,13 +113,13 @@ function onOpenWithProgram(program:string)
 }
 
 /** clicked tile. set the selected item */
-function onImageTileClick(imgPath:string):void
+function onImageTileClick(img:RandomItem):void
 {
-    selectedItem=imgPath;
+    selectedItem=img.path;
 }
 
 /** double clicked image tile. open the path with the 1st program in the program list */
-function onImageTileDbClick(imgPath:string):void
+function onImageTileDbClick(img:RandomItem):void
 {
     if (!programsList.length)
     {
@@ -128,7 +127,7 @@ function onImageTileDbClick(imgPath:string):void
         return;
     }
 
-    launchItem(imgPath,programsList[0]);
+    launchItem(img.path,programsList[0]);
 }
 
 /** clicked find in file explorer. trigger find in file explorer for the current item */
@@ -168,11 +167,12 @@ function onFindFileExplore():void
 
 <section class="controls">
     <a href="javascript:void(0)" onclick={onNextClick}>Next Items</a>
+    <p>{selectedItem || ""}</p>
 </section>
 
 <section class="items">
     {#each currentItems as item (item.path)}
-        <ImageTile img={item.path} selected={item.path==selectedItem}
+        <ImageTile img={item} selected={item.path==selectedItem}
             onclick={onImageTileClick} ondoubleclick={onImageTileDbClick}/>
     {/each}
 </section>
