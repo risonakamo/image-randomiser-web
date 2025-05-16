@@ -1,4 +1,6 @@
 <script lang="ts">
+import {imageFitHook} from "@/lib/image-fit.svelte";
+
 const {
     img,
     selected=false,
@@ -13,6 +15,8 @@ const {
     onclick?(img:string):void
     ondoubleclick?(img:string):void
 }=$props();
+
+var imageFit=$state(imageFitHook());
 
 /** clicked tile */
 function onTileClick():void
@@ -33,5 +37,7 @@ function onDoubleClick():void
 
 <div class="image-item" draggable={false} class:selected={selected} onclick={onTileClick}
     ondblclick={onDoubleClick}>
-    <img src={img} alt="missing" draggable={true}/>
+    <img src={img} alt="missing" draggable={true} use:imageFit.gotImageRef
+        onload={imageFit.onLoad} class:wide-fit={imageFit.isWide}
+        class:tall-fit={imageFit.isTall} class:loading={imageFit.isLoading}/>
 </div>
