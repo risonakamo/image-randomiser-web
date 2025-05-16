@@ -64,6 +64,49 @@ onMount(async ()=>{
     programsList=await getPrograms();
 });
 
+/** key control */
+function keyControl(e:KeyboardEvent):void
+{
+    // enter, space: does same thing as clicking next button
+    if (e.key=="Enter" || e.key==" ")
+    {
+        e.preventDefault();
+        onNextClick();
+    }
+
+    // number keys trigger programs
+    else if (e.key=="1")
+    {
+        triggerProgramAtPosition(0);
+    }
+
+    else if (e.key=="2")
+    {
+        triggerProgramAtPosition(1);
+    }
+
+    else if (e.key=="3")
+    {
+        triggerProgramAtPosition(2);
+    }
+
+    else if (e.key=="4")
+    {
+        triggerProgramAtPosition(3);
+    }
+
+    else if (e.key=="5")
+    {
+        triggerProgramAtPosition(4);
+    }
+
+    // e: same as clicking open in file explorer button
+    else if (e.key=="e" || e.key=="E")
+    {
+        onFindFileExplore();
+    }
+}
+
 /** consume from the session to set the current items */
 function generateItems():void
 {
@@ -90,6 +133,23 @@ function nextItems():void
 
     generateAmount=_.random(generateAmountMin,generateAmountMax);
     generateItems();
+}
+
+/** trigger program at the specified position on the selected item. does nothing
+ *  if there is no program at that position, or no selected item */
+function triggerProgramAtPosition(programNum:number):void
+{
+    if (!selectedItem)
+    {
+        return;
+    }
+
+    if (programNum>=programsList.length)
+    {
+        return;
+    }
+
+    launchItem(selectedItem,programsList[programNum]);
 }
 
 /** clicked next items button. execute next items */
@@ -186,3 +246,5 @@ function onFindFileExplore():void
 
     <p><a href="javascript:void(0)" onclick={onFindFileExplore}>find in file explorer</a></p>
 </section>
+
+<svelte:window onkeydown={keyControl}/>
