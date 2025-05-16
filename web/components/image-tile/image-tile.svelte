@@ -14,6 +14,12 @@ const {
     ondoubleclick?(img:string):void
 }=$props();
 
+var isWide:boolean=$state(false);
+var isTall:boolean=$state(false);
+var isLoading:boolean=$state(false);
+
+var imageRef:HTMLImageElement;
+
 /** clicked tile */
 function onTileClick():void
 {
@@ -25,6 +31,29 @@ function onDoubleClick():void
 {
     ondoubleclick?.(img);
 }
+
+/** on image load, detect the fit state */
+function onImageLoad():void
+{
+    if (!imageRef)
+    {
+        return;
+    }
+
+    if (imageRef.naturalWidth>imageRef.naturalHeight)
+    {
+        isWide=true;
+        isTall=false;
+    }
+
+    else
+    {
+        isWide=false;
+        isTall=true;
+    }
+
+    isLoading=false;
+}
 </script>
 
 <style lang="sass">
@@ -33,5 +62,7 @@ function onDoubleClick():void
 
 <div class="image-item" draggable={false} class:selected={selected} onclick={onTileClick}
     ondblclick={onDoubleClick}>
-    <img src={img} alt="missing" draggable={true}/>
+    <img src={img} alt="missing" draggable={true} bind:this={imageRef}
+        onload={onImageLoad} class:wide-fit={isWide}
+        class:tall-fit={isTall} class:loading={isLoading}/>
 </div>

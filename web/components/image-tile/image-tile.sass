@@ -10,7 +10,14 @@
     cursor: pointer
 
     img
-        width: 100%
+        &.wide-fit
+            width: 100%
+
+        &.tall-fit
+            height: 100%
+
+        &.loading
+            opacity: 0
 
     &.selected
         background: #c0e5c0
