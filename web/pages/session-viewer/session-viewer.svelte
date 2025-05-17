@@ -4,7 +4,8 @@ import _ from "lodash";
 
 import {formatTime} from "@/lib/utils";
 import ImageTile from "@/components/image-tile/image-tile.svelte";
-import {getPrograms, getSession, launchItem, openFileExplorer} from "@/api/bridge";
+import {getPrograms, getSession, launchItem,
+    openFileExplorer, updateSessionPosition} from "@/api/bridge";
 import {getSessionViewerArgs} from "@/lib/url-query";
 
 const generateAmountMin:number=10;
@@ -130,6 +131,8 @@ function nextItems():void
 
     session.position+=generateAmount;
     session.position=Math.min(session.position,session.items.length);
+
+    updateSessionPosition(session.id,session.position);
 
     generateAmount=_.random(generateAmountMin,generateAmountMax);
     generateItems();

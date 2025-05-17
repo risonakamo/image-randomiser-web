@@ -12,4 +12,5 @@ export const {
     getItemCount,
     getSession,
     openFileExplorer,
+    updateSessionPosition,
 }=((window as any).electron as Bridge);
