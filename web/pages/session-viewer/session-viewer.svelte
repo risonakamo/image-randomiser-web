@@ -36,6 +36,9 @@ var selectedItem:string|undefined=$state(undefined);
 /** initial session number on first load. to track number of items advanced so far */
 var initialSessionPosition:number=0;
 
+/** name of keys held down. prevents key from activating again until released */
+var heldKeys:Set<string>=new Set();
+
 /** works as the total number of items generated */
 var sessionPositionChange:number=$derived(session.position-initialSessionPosition);
 
@@ -68,6 +71,14 @@ onMount(async ()=>{
 /** key control */
 function keyControl(e:KeyboardEvent):void
 {
+    if (heldKeys.has(e.key))
+    {
+        e.preventDefault();
+        return;
+    }
+
+    heldKeys.add(e.key);
+
     // enter, space: does same thing as clicking next button
     if (e.key=="Enter" || e.key==" ")
     {
@@ -106,6 +117,18 @@ function keyControl(e:KeyboardEvent):void
     {
         onFindFileExplore();
     }
+
+    // esc: click back to session button
+    else if (e.key=="Escape")
+    {
+        window.location.href="./session-select.html";
+    }
+}
+
+/** released a key. remove from held keys */
+function keyControlRelease(e:KeyboardEvent):void
+{
+    heldKeys.delete(e.key);
 }
 
 /** consume from the session to set the current items */
@@ -250,4 +273,4 @@ function onFindFileExplore():void
     <p><a href="javascript:void(0)" onclick={onFindFileExplore}>find in file explorer</a></p>
 </section>
 
-<svelte:window onkeydown={keyControl}/>
+<svelte:window onkeydown={keyControl} onkeyup={keyControlRelease}/>
