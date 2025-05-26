@@ -102,11 +102,6 @@ async function onCreateClick():Promise<void>
 {
     var title:string=titleText.trim();
 
-    if (!title.length)
-    {
-        title="no title";
-    }
-
     await newSession(
         $state.snapshot(selecteditems),
         title,
