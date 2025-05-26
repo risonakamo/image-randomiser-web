@@ -19,22 +19,31 @@ var titleText:string=$state("");
 /** current items count. updated async by effect */
 var itemsCount:number=$state(0);
 
+var rememberedFolders:RememberedFolder[]=$state([]);
+
 var createDisabled:boolean=$derived(itemsCount==0);
 
 onMount(()=>{
     (async ()=>{
-        console.log("rem",await getRememberedFolders());
+        rememberedFolders=await getRememberedFolders();
     })();
 });
 
 // get items count on selected items changing
 $effect(()=>{
     (async ()=>{
+        console.log("getting item count",selecteditems);
         itemsCount=await getItemCount(
             $state.snapshot(selecteditems),
         );
     })();
 });
+
+/** add items to selected items. deduplicates */
+function addToSelectedItems(newItems:string[]):void
+{
+    selecteditems=_.uniq(_.concat(selecteditems,newItems));
+}
 
 /** dropped an item. add it to selected items after converting it into normal file path */
 async function onDrop(e:DragEvent):Promise<void>
@@ -48,7 +57,7 @@ async function onDrop(e:DragEvent):Promise<void>
 
     const filePaths:string[]=await absPathDirs(Array.from(e.dataTransfer.files));
 
-    selecteditems=_.uniq(_.concat(selecteditems,filePaths));
+    addToSelectedItems(filePaths);
 }
 
 /** default drag event */
@@ -105,6 +114,15 @@ async function onCreateClick():Promise<void>
 
     window.location.href="session-select.html";
 }
+
+/** clicked to add a rem folder. call func to update selected items with
+ *  the selected rem folder */
+function onAddRemFolder(remFolderPath:string)
+{
+    return ()=>{
+        addToSelectedItems([remFolderPath]);
+    };
+}
 </script>
 
 <style lang="sass">
@@ -116,6 +134,22 @@ async function onCreateClick():Promise<void>
 <p>
     title:<input type="text" bind:value={titleText}/>
 </p>
+
+<div class="remembered-items">
+    <p>Recent Items</p>
+    <ul>
+        {#each rememberedFolders as remFolder (remFolder.path)}
+            <li>
+                {remFolder.title} ({remFolder.path}): {remFolder.timesUsed}
+                <a href="javascript:void(0)"
+                    onclick={onAddRemFolder(remFolder.path)}
+                >
+                    add
+                </a>
+            </li>
+        {/each}
+    </ul>
+</div>
 
 <div class="drop-zone" ondrop={onDrop} ondragover={onDragOver} ondragenter={onDragIn}
     ondragleave={onDragOut} ondragend={onDragEnd}
