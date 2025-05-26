@@ -2,7 +2,8 @@
 import _ from "lodash";
 import {onMount} from "svelte";
 
-import {absPathDirs, getItemCount, newSession} from "@/api/bridge";
+import {absPathDirs, getItemCount, getRememberedFolders,
+    newSession} from "@/api/bridge";
 
 /** paths of selected items */
 var selecteditems:string[]=$state([]);
@@ -19,6 +20,12 @@ var titleText:string=$state("");
 var itemsCount:number=$state(0);
 
 var createDisabled:boolean=$derived(itemsCount==0);
+
+onMount(()=>{
+    (async ()=>{
+        console.log("rem",await getRememberedFolders());
+    })();
+});
 
 // get items count on selected items changing
 $effect(()=>{

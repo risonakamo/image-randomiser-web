@@ -15,6 +15,7 @@ interface Bridge
     getSession(sessionId:string):Promise<RandomisationSession|undefined>
     openFileExplorer(item:string):Promise<void>
     updateSessionPosition(sessionId:string,newPosition:number):Promise<void>
+    getRememberedFolders():Promise<RememberedFolder[]>
 }
 
 /** random session */
@@ -55,4 +56,11 @@ interface RandomItem
 
     // parent folder
     parent:string
+}
+
+/** a folder once used in randomisation. adds additional tracking info fields */
+interface RememberedFolder extends RandomableFolder
+{
+    timesUsed:number
+    lastUseDate:number
 }

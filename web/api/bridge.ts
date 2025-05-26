@@ -13,4 +13,5 @@ export const {
     getSession,
     openFileExplorer,
     updateSessionPosition,
+    getRememberedFolders,
 }=((window as any).electron as Bridge);
