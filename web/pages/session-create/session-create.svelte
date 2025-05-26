@@ -17,11 +17,34 @@ var titleText:string=$state("");
 // var draggedOver:boolean=$derived(dragCounter>0);
 
 /** current items count. updated async by effect */
-var itemsCount:number=$state(0);
+var itemsCount:ItemCounts=$state({
+    individualCounts:{},
+    total:0,
+});
 
 var rememberedFolders:RememberedFolder[]=$state([]);
 
-var createDisabled:boolean=$derived(itemsCount==0);
+var createDisabled:boolean=$derived(itemsCount.total==0);
+
+/** the select items, but with count number */
+var selectedItemsWithCount:ItemWithCount[]=$derived.by(()=>{
+    return _.map(selecteditems,(item:string):ItemWithCount=>{
+        var count:number=-1;
+        var countText:string="...";
+
+        if (item in itemsCount.individualCounts)
+        {
+            count=itemsCount.individualCounts[item];
+            countText=count.toString();
+        }
+
+        return {
+            itemName:item,
+            count,
+            countText,
+        };
+    });
+});
 
 onMount(()=>{
     (async ()=>{
@@ -33,6 +56,7 @@ onMount(()=>{
 $effect(()=>{
     (async ()=>{
         console.log("getting item count",selecteditems);
+
         itemsCount=await getItemCount(
             $state.snapshot(selecteditems),
         );
@@ -155,17 +179,21 @@ function onAddRemFolder(remFolderPath:string)
 <div class="selected-items">
     <p>Selected Folders:</p>
     <ul>
-        {#each selecteditems as item (item)}
+        {#each selectedItemsWithCount as item (item.itemName)}
             <li>
-                {item}
-                <a href="javascript:void(0)"onclick={onDeleteItem(item)}>delete</a>
+                {item.itemName} (number items: {item.countText})
+                <a href="javascript:void(0)"
+                    onclick={onDeleteItem(item.itemName)}
+                >
+                    delete
+                </a>
             </li>
         {/each}
     </ul>
 </div>
 
 <div class="info">
-    <p>number items: {itemsCount}</p>
+    <p>number items: {itemsCount.total}</p>
 </div>
 
 <h2>

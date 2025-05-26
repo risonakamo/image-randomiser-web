@@ -1,5 +1,10 @@
 // types copied from backend
 
+/** individual counts of folders in item counts result
+ *  key: path of folder
+ *  val: items in that folder */
+type ItemCountsDict=Record<string,number>
+
 /** api available to frontend */
 interface Bridge
 {
@@ -11,7 +16,7 @@ interface Bridge
     getSessions():Promise<RandomisationSession[]>
     deleteSession(deleteId:string):Promise<RandomisationSession[]>
     duplicateSession(duplicateId:string,title:string):Promise<RandomisationSession[]>
-    getItemCount(folders:string[]):Promise<number>
+    getItemCount(folders:string[]):Promise<ItemCounts>
     getSession(sessionId:string):Promise<RandomisationSession|undefined>
     openFileExplorer(item:string):Promise<void>
     updateSessionPosition(sessionId:string,newPosition:number):Promise<void>
@@ -63,4 +68,11 @@ interface RememberedFolder extends RandomableFolder
 {
     timesUsed:number
     lastUseDate:number
+}
+
+/** result of items count */
+interface ItemCounts
+{
+    individualCounts:ItemCountsDict
+    total:number
 }
