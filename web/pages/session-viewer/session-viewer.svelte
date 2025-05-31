@@ -264,13 +264,13 @@ function onFindFileExplore():void
 </section>
 
 <section class="items-controls">
-    {#each programsList as program}
+    {#each programsList as program,programI}
         <p><a href="javascript:void(0)" onclick={onOpenWithProgram(program)}>
-            open with: {program}
+            {programI+1}. open with: {program}
         </a></p>
     {/each}
 
-    <p><a href="javascript:void(0)" onclick={onFindFileExplore}>find in file explorer</a></p>
+    <p><a href="javascript:void(0)" onclick={onFindFileExplore}>e. find in file explorer</a></p>
 </section>
 
 <svelte:window onkeydown={keyControl} onkeyup={keyControlRelease}/>
