@@ -1,7 +1,7 @@
 <script lang="ts">
 import {onMount} from "svelte";
 
-import {deleteSession, duplicateSession, getSessions} from "@/api/bridge";
+import {deleteSession, duplicateSession, getSessions, resetStore} from "@/api/bridge";
 import SessionBox from "@/components/session-box/session-box.svelte";
 import _ from "lodash";
 
@@ -28,11 +28,18 @@ async function onSessionDuplicate(session:RandomisationSession,title:string)
 {
     sessions=await duplicateSession(session.id,title);
 }
+
+/** clicked reset store. call to reset, then get new session list */
+async function onResetStore():Promise<void>
+{
+    await resetStore();
+    sessions=await getSessions();
+}
 </script>
 
 <div class="controls">
     <h2><a href="./session-create.html">create session</a></h2>
-    <h2><a href="javascript:void(0)">reset storage</a></h2>
+    <h2><a href="javascript:void(0)" onclick={onResetStore}>reset storage</a></h2>
 </div>
 
 <div class="sessions">

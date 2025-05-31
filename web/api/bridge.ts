@@ -14,4 +14,5 @@ export const {
     openFileExplorer,
     updateSessionPosition,
     getRememberedFolders,
+    resetStore,
 }=((window as any).electron as Bridge);

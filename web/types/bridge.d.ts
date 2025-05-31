@@ -21,6 +21,7 @@ interface Bridge
     openFileExplorer(item:string):Promise<void>
     updateSessionPosition(sessionId:string,newPosition:number):Promise<void>
     getRememberedFolders():Promise<RememberedFolder[]>
+    resetStore():Promise<void>
 }
 
 /** random session */
@@ -55,12 +56,6 @@ interface RandomItem
 {
     // filepath to the item. also a unique id
     path:string
-
-    // filename
-    name:string
-
-    // parent folder
-    parent:string
 }
 
 /** a folder once used in randomisation. adds additional tracking info fields */
