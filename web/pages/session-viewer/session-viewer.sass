@@ -1,4 +1,67 @@
+@font-face
+    font-family: "work sans"
+    src: url("@/font/WorkSans-VariableFont_wght.ttf")
+
+:global
+    html
+        background: #202020
+        color: #eaeaea
+        font-family: "work sans"
+
+    html,body
+        height: 100%
+        width: 100%
+
+    body
+        display: flex
+        flex-direction: column
+        overflow: hidden
+        margin: 0
+
+section.info
+    height: 100px
+    display: flex
+
+    .session-info-box
+        display: flex
+        flex-direction: column
+        width: 460px
+        background: #52657891
+        padding: 5px 15px
+        box-sizing: border-box
+        border-radius: 9px
+
+        .top
+            display: flex
+            align-items: center
+
+            h2
+                margin: 0
+                font-size: 19px
+                font-weight: 400
+                flex: 1
+
+            h3
+                margin: 0
+                font-weight: 400
+                font-size: 15px
+                color: #96ffc9
+
+        .bottom
+            display: flex
+            flex: 1
+
+            .progress-text
+                font-size: 20px
+
+            .progress-bar
+                flex: 1
+
 section.items
     font-size: 0
     display: flex
     flex-wrap: wrap
+    flex: 1
+
+section.controls
+    height: 60px

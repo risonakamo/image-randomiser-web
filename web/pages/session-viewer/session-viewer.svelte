@@ -232,9 +232,7 @@ function onFindFileExplore():void
     @use "./session-viewer.sass"
 </style>
 
-<a href="./session-select.html">Back to Session Select</a>
-
-<section class="info">
+<!-- <section class="info">
     <h1>session title</h1>
     <ul>
         <li>created: {formatTime(session.createdDate)}</li>
@@ -249,11 +247,19 @@ function onFindFileExplore():void
             </ul>
         </li>
     </ul>
-</section>
+</section> -->
 
-<section class="controls">
-    <a href="javascript:void(0)" onclick={onNextClick}>Next Items</a>
-    <p>{selectedItem || ""}</p>
+<section class="info">
+    <div class="session-info-box">
+        <div class="top">
+            <h2>{session.title}</h2>
+            <h3>50 Generated</h3>
+        </div>
+        <div class="bottom">
+            <span class="progress-text">{session.position}/{session.items.length}</span>
+            <span class="progress-bar"></span>
+        </div>
+    </div>
 </section>
 
 <section class="items">
@@ -263,7 +269,7 @@ function onFindFileExplore():void
     {/each}
 </section>
 
-<section class="items-controls">
+<section class="controls">
     {#each programsList as program,programI}
         <p><a href="javascript:void(0)" onclick={onOpenWithProgram(program)}>
             {programI+1}. open with: {program}
