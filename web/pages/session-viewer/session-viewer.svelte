@@ -7,6 +7,7 @@ import ImageTile from "@/components/image-tile/image-tile.svelte";
 import {getPrograms, getSession, launchItem,
     openFileExplorer, updateSessionPosition} from "@/api/bridge";
 import {getSessionViewerArgs} from "@/lib/url-query";
+    import SessionInfoBox from "@/components/session-info-box/session-info-box.svelte";
 
 const generateAmountMin:number=10;
 const generateAmountMax:number=20;
@@ -232,36 +233,6 @@ function onFindFileExplore():void
     @use "./session-viewer.sass"
 </style>
 
-<!-- <section class="info">
-    <h1>session title</h1>
-    <ul>
-        <li>created: {formatTime(session.createdDate)}</li>
-        <li>updated: {formatTime(session.lastUpdateDate)}</li>
-        <li>progress: {session.position}/{session.items.length}</li>
-        <li>items generated: {sessionPositionChange}</li>
-        <li>folders:
-            <ul>
-                {#each session.originDirs as dir (dir)}
-                    <li>{dir.title} ({dir.path})</li>
-                {/each}
-            </ul>
-        </li>
-    </ul>
-</section> -->
-
-<section class="info">
-    <div class="session-info-box">
-        <div class="top">
-            <h2>{session.title}</h2>
-            <h3>50 Generated</h3>
-        </div>
-        <div class="bottom">
-            <span class="progress-text">{session.position}/{session.items.length}</span>
-            <span class="progress-bar"></span>
-        </div>
-    </div>
-</section>
-
 <section class="items">
     {#each currentItems as item (item.path)}
         <ImageTile img={item} selected={item.path==selectedItem}
@@ -270,13 +241,16 @@ function onFindFileExplore():void
 </section>
 
 <section class="controls">
-    {#each programsList as program,programI}
+    <!-- {#each programsList as program,programI}
         <p><a href="javascript:void(0)" onclick={onOpenWithProgram(program)}>
             {programI+1}. open with: {program}
         </a></p>
     {/each}
 
-    <p><a href="javascript:void(0)" onclick={onFindFileExplore}>e. find in file explorer</a></p>
+    <p><a href="javascript:void(0)" onclick={onFindFileExplore}>e. find in file explorer</a></p> -->
+
+    <SessionInfoBox title={session.title} generatedAmount={sessionPositionChange}
+        sessionPosition={session.position} totalItems={session.items.length}/>
 </section>
 
 <svelte:window onkeydown={keyControl} onkeyup={keyControlRelease}/>
