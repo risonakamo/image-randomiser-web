@@ -11,6 +11,10 @@ var {
     sessionPosition:number
     totalItems:number
 }=$props();
+
+var progressWidthString:string=$derived(
+    `${(sessionPosition/totalItems)*100}%`
+);
 </script>
 
 <style lang="sass">
@@ -24,6 +28,12 @@ var {
     </div>
     <div class="bottom">
         <span class="progress-text">{sessionPosition}/{totalItems}</span>
-        <span class="progress-bar"></span>
+        <span class="progress-bar">
+            <div class="bar-outer">
+                <div class="bar-contain">
+                    <div class="bar-inner" style:width={progressWidthString}></div>
+                </div>
+            </div>
+        </span>
     </div>
 </div>
