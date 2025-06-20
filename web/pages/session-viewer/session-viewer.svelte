@@ -7,7 +7,8 @@ import ImageTile from "@/components/image-tile/image-tile.svelte";
 import {getPrograms, getSession, launchItem,
     openFileExplorer, updateSessionPosition} from "@/api/bridge";
 import {getSessionViewerArgs} from "@/lib/url-query";
-    import SessionInfoBox from "@/components/session-info-box/session-info-box.svelte";
+import SessionInfoBox from "@/components/session-info-box/session-info-box.svelte";
+import ProgramLauncher from "@/components/program-launcher/program-launcher.svelte";
 
 const generateAmountMin:number=10;
 const generateAmountMax:number=20;
@@ -189,14 +190,12 @@ function onNextClick():void
  *  program */
 function onOpenWithProgram(program:string)
 {
-    return ()=>{
-        if (!selectedItem)
-        {
-            return;
-        }
+    if (!selectedItem)
+    {
+        return;
+    }
 
-        launchItem(selectedItem,program);
-    };
+    launchItem(selectedItem,program);
 }
 
 /** clicked tile. set the selected item */
@@ -241,13 +240,8 @@ function onFindFileExplore():void
 </section>
 
 <section class="controls">
-    <!-- {#each programsList as program,programI}
-        <p><a href="javascript:void(0)" onclick={onOpenWithProgram(program)}>
-            {programI+1}. open with: {program}
-        </a></p>
-    {/each}
-
-    <p><a href="javascript:void(0)" onclick={onFindFileExplore}>e. find in file explorer</a></p> -->
+    <ProgramLauncher programs={programsList} onClickedProgram={onOpenWithProgram}
+        onClickFileExplore={onFindFileExplore}/>
 
     <SessionInfoBox title={session.title} generatedAmount={sessionPositionChange}
         sessionPosition={session.position} totalItems={session.items.length}/>
