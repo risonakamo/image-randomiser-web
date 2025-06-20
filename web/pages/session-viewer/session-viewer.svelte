@@ -240,6 +240,12 @@ function onFindFileExplore():void
 </section>
 
 <section class="controls">
+    <div class="back-button-contain">
+        <div class="back-button">
+            &lt;
+        </div>
+    </div>
+
     <ProgramLauncher programs={programsList} onClickedProgram={onOpenWithProgram}
         onClickFileExplore={onFindFileExplore}/>
 

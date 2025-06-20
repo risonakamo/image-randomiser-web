@@ -1,3 +1,5 @@
+@use "@/css/shared.sass"
+
 @font-face
     font-family: "work sans"
     src: url("@/font/WorkSans-VariableFont_wght.ttf")
@@ -27,5 +29,21 @@ section.items
 
 section.controls
     height: 95px
-    padding: 9px 0
+    padding: 9px 12px
     box-sizing: border-box
+    display: flex
+    align-items: center
+
+    .back-button-contain
+        margin-right: 15px
+
+        .back-button
+            @include shared.fade-button
+
+            display: inline-block
+            padding: 10px 19px
+            border-radius: 4px
+            vertical-align: middle
+            font-size: 20px
+            font-weight: 300
+            background: transparent
