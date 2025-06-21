@@ -13,6 +13,9 @@ import ProgramLauncher from "@/components/program-launcher/program-launcher.svel
 const generateAmountMin:number=10;
 const generateAmountMax:number=20;
 
+/** html element holding the items */
+var itemsContainer:HTMLElement|undefined=$state(undefined);
+
 var session:RandomisationSession=$state({
     id:"",
     title:"",
@@ -163,6 +166,11 @@ function nextItems():void
     generateItems();
 
     selectedItem=undefined;
+
+    if (itemsContainer)
+    {
+        itemsContainer.scrollTop=0;
+    }
 }
 
 /** trigger program at the specified position on the selected item. does nothing
@@ -240,7 +248,7 @@ function onBackButtonClick():void
     @use "./session-viewer.sass"
 </style>
 
-<section class="items">
+<section class="items" bind:this={itemsContainer}>
     {#each currentItems as item (item.path)}
         <ImageTile img={item} selected={item.path==selectedItem}
             onclick={onImageTileClick} ondoubleclick={onImageTileDbClick}/>
