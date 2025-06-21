@@ -226,6 +226,12 @@ function onFindFileExplore():void
 
     openFileExplorer(selectedItem);
 }
+
+/** clicked back button. go to session select */
+function onBackButtonClick():void
+{
+    window.location.href="./session-select.html";
+}
 </script>
 
 <style lang="sass">
@@ -240,11 +246,11 @@ function onFindFileExplore():void
 </section>
 
 <section class="selection-status">
-    someting someting
+    {selectedItem}
 </section>
 
 <section class="controls">
-    <div class="back-button-contain">
+    <div class="back-button-contain" onclick={onBackButtonClick}>
         <div class="back-button">
             &lt;
         </div>
