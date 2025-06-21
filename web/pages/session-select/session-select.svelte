@@ -37,7 +37,11 @@ async function onResetStore():Promise<void>
 }
 </script>
 
-<div class="controls">
+<style lang="sass">
+    @use "./session-select.sass"
+</style>
+
+<!-- <div class="controls">
     <h2><a href="./session-create.html">create session</a></h2>
     <h2><a href="javascript:void(0)" onclick={onResetStore}>reset storage</a></h2>
 </div>
@@ -47,4 +51,19 @@ async function onResetStore():Promise<void>
         <SessionBox session={session} ondelete={onSessionDelete}
             onduplicate={onSessionDuplicate}/>
     {/each}
+</div> -->
+
+<div class="contain">
+    <div class="controls">
+        <div class="create-button">
+            + Create
+        </div>
+    </div>
+
+    <div class="session-list">
+        {#each sortedSessions as session (session.id)}
+            <SessionBox session={session} ondelete={onSessionDelete}
+                onduplicate={onSessionDuplicate}/>
+        {/each}
+    </div>
 </div>
