@@ -161,6 +161,8 @@ function nextItems():void
 
     generateAmount=_.random(generateAmountMin,generateAmountMax);
     generateItems();
+
+    selectedItem=undefined;
 }
 
 /** trigger program at the specified position on the selected item. does nothing
