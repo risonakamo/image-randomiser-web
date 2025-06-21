@@ -251,6 +251,10 @@ function onFindFileExplore():void
 
     <SessionInfoBox title={session.title} generatedAmount={sessionPositionChange}
         sessionPosition={session.position} totalItems={session.items.length}/>
+
+    <div class="next-button" onclick={onNextClick}>
+        Generate
+    </div>
 </section>
 
 <svelte:window onkeydown={keyControl} onkeyup={keyControlRelease}/>
