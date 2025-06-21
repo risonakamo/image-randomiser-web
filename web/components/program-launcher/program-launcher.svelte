@@ -24,15 +24,18 @@ function onClickProgramButton(program:string)
 </style>
 
 <div class="program-launcher">
-    {#each programs as program,programI}
-        <div class="program-button" onclick={onClickProgramButton(program)}>
-            <div class="name">{program}</div>
-            <kbd class="number">{programI+1}</kbd>
-        </div>
-    {/each}
+    <h2>Progam Launch</h2>
+    <div class="programs">
+        {#each programs as program,programI}
+            <div class="program-button" onclick={onClickProgramButton(program)}>
+                <div class="name">{program}</div>
+                <kbd class="number">{programI+1}</kbd>
+            </div>
+        {/each}
 
-    <div class="program-button" onclick={onClickFileExplore}>
-        <div class="name">File Explorer</div>
-        <kbd class="number">E</kbd>
+        <div class="program-button" onclick={onClickFileExplore}>
+            <div class="name">File Explorer</div>
+            <kbd class="number">E</kbd>
+        </div>
     </div>
 </div>
