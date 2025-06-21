@@ -239,6 +239,10 @@ function onFindFileExplore():void
     {/each}
 </section>
 
+<section class="selection-status">
+    someting someting
+</section>
+
 <section class="controls">
     <div class="back-button-contain">
         <div class="back-button">
