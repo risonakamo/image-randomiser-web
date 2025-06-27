@@ -124,7 +124,7 @@ function onClick():void
         <div class="left">
             <h2>{session.title}</h2>
             <div class="progress-bar">
-
+                <div class="inner" style:width={`${sessionPercent}%`}></div>
             </div>
         </div>
 
