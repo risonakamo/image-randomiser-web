@@ -40,17 +40,21 @@ var duplicateButtonText:string=$derived.by(()=>{
 
 var viewerUrl:string=$derived(createSessionViewerUrl(session.id));
 
+var sessionPercent:number=$derived(Math.round((session.position/session.items.length)*100));
+
 /** clicked delete button. call delete event with the session */
-function h_delete(e:MouseEvent):void
+function onDelete(e:MouseEvent):void
 {
     e.preventDefault();
+    e.stopPropagation();
     ondelete(session);
 }
 
 /** clicked duplicate button. do action based on if duplicate menu is showing */
-function h_duplicate(e:MouseEvent):void
+function onDuplicate(e:MouseEvent):void
 {
     e.preventDefault();
+    e.stopPropagation();
 
     // if menu not showing, show the menu, and set the title select box contents
     // to the current session's title.
@@ -81,13 +85,54 @@ function h_duplicate(e:MouseEvent):void
         duplicateMenuShowing=false;
     }
 }
+
+/** clicked on the box. navigate page to viewer url */
+function onClick():void
+{
+    if (sessionComplete)
+    {
+        return;
+    }
+
+    window.location.href=viewerUrl;
+}
 </script>
 
 <style lang="sass">
     @use "./session-box.sass"
 </style>
 
-<div class="session-box">
+<div class="session-box" class:complete={sessionComplete} onclick={onClick}>
+    <div class="top">
+        <div class="left">
+            <h2>{session.title}</h2>
+            <div class="progress-bar">
+
+            </div>
+        </div>
+
+        <div class="right">
+            <div class="box-button" onclick={onDelete}>
+                🗑
+            </div>
+            <div class="box-button" onclick={onDuplicate}>
+                ⎘
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom">
+        <span class="progress">{session.position}/{session.items.length}</span>
+        <span class="percent">{sessionPercent}%</span>
+        <span class="faded created">Updated 2 days ago</span>
+        <span class="faded">•</span>
+        <span class="faded">Created 2 days ago</span>
+        <span class="faded">•</span>
+        <span class="faded">Items List</span>
+    </div>
+</div>
+
+<!-- <div class="session-box">
     <h2>
         {#if !sessionComplete}
             <a href={viewerUrl}>{session.title}</a>
@@ -113,4 +158,4 @@ function h_duplicate(e:MouseEvent):void
             <input type="text" bind:value={duplicateTitle}/>
         </div>
     </div>
-</div>
+</div> -->

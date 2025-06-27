@@ -1,17 +1,99 @@
 .session-box
-    border: 1px solid black
+    border: 1px solid #3d4a53
     padding: 5px 15px
     margin: 10px 0
+    background: #292e33
+    border-radius: 8px
+    cursor: pointer
+    user-select: none
 
     h2,p,ul
         margin: 0
 
-    h3
-        margin: 0
-        font-weight: 400
-        font-size: 9px
-        margin-bottom: 7px
+    h2
+        font-weight: 500
+        font-size: 17px
+        padding-bottom: 10px
 
-    .duplicate-menu
-        &.hidden
-            display: none
+    .top
+        display: flex
+        height: 40px
+
+        .right
+            font-size: 0
+            display: flex
+            justify-content: center
+            align-items: center
+            padding-left: 15px
+
+            .box-button
+                height: 30px
+                width: 30px
+                display: inline-flex
+                background: #344048
+                align-items: center
+                justify-content: center
+                border: 1px solid #4f6270
+                border-radius: 4px
+                font-size: 20px
+                vertical-align: top
+                margin-right: 7px
+                cursor: pointer
+
+                &:hover
+                    background: #3e4952
+                    border-color: #73838f
+
+                &:active
+                    background: #454f56
+                    border-color: #73838f
+
+        .left
+            flex: 1
+
+            .progress-bar
+                height: 3.5px
+                background: #49a6e9
+                border-radius: 10px
+
+    .bottom
+        font-size: 15px
+
+        .progress
+            color: #cfd8dc
+
+        .percent
+            color: #49a6e9
+
+        .created
+            color: #90ae92
+
+        .faded
+            opacity: .9
+            font-weight: 300
+            font-size: 13px
+
+    &.complete
+        background: #2a3638
+        border-color: #3e5353
+        cursor: not-allowed
+
+        .top .left .progress-bar
+            background: #49e9c7
+
+        .bottom .percent
+            color: #63c596
+
+        &:hover
+            background: #2a3638
+            border-color: #3e5353
+
+        &:active
+            background: #2a3638
+
+    &:hover
+        border-color: #546673
+        background: #30363b
+
+    &:active
+        background: #353b3e
