@@ -4,6 +4,7 @@
 import {createSessionTitle} from "@/lib/session";
 import {createSessionViewerUrl} from "@/lib/url-query";
 import {formatTime} from "@/lib/utils";
+import humanize from "humanize-duration";
 
 var {
     session,
@@ -41,6 +42,22 @@ var duplicateButtonText:string=$derived.by(()=>{
 var viewerUrl:string=$derived(createSessionViewerUrl(session.id));
 
 var sessionPercent:number=$derived(Math.round((session.position/session.items.length)*100));
+
+var createTimeRelative:string=$derived(humanize(
+    new Date().getTime()-session.createdDate,
+    {
+        largest:1,
+        round:true,
+    }
+));
+
+var updateTimeRelative:string=$derived(humanize(
+    new Date().getTime()-session.lastUpdateDate,
+    {
+        largest:1,
+        round:true,
+    }
+));
 
 /** clicked delete button. call delete event with the session */
 function onDelete(e:MouseEvent):void
@@ -124,9 +141,13 @@ function onClick():void
     <div class="bottom">
         <span class="progress">{session.position}/{session.items.length}</span>
         <span class="percent">{sessionPercent}%</span>
-        <span class="faded created">Updated 2 days ago</span>
+        <span class="faded created" title={formatTime(session.lastUpdateDate)}>
+            Updated {updateTimeRelative} ago
+        </span>
         <span class="faded">•</span>
-        <span class="faded">Created 2 days ago</span>
+        <span class="faded" title={formatTime(session.createdDate)}>
+            Created {createTimeRelative} ago
+        </span>
         <span class="faded">•</span>
         <span class="faded">Items List</span>
     </div>

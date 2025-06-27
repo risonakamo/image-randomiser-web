@@ -10,7 +10,9 @@
   "dependencies": {
     "@sveltejs/vite-plugin-svelte": "^5.0.3",
     "@tsconfig/svelte": "^5.0.4",
+    "@types/humanize-duration": "^3.27.4",
     "@types/lodash": "^4.17.16",
+    "humanize-duration": "^3.33.0",
     "lodash": "^4.17.21",
     "rollup": "^4.40.0",
     "sass": "^1.86.3",

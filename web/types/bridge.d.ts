@@ -34,6 +34,7 @@ interface RandomisationSession
     // after are NOT consumed
     position:number
 
+    // unix milleseconds
     createdDate:number
     lastUpdateDate:number
 
