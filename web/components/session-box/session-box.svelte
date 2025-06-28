@@ -29,18 +29,10 @@ var duplicateTitle:string=$state("");
 /** if this session is marked as complete */
 var sessionComplete:boolean=$derived(session.position>=session.items.length);
 
-/** text of the duplicate button */
-var duplicateButtonText:string=$derived.by(()=>{
-    if (duplicateMenuShowing)
-    {
-        return "do duplicate";
-    }
-
-    return "duplicate";
-});
-
+/** url of the viewer page for this box */
 var viewerUrl:string=$derived(createSessionViewerUrl(session.id));
 
+/** session progress as a percent */
 var sessionPercent:number=$derived(Math.round((session.position/session.items.length)*100));
 
 var createTimeRelative:string=$derived(humanize(
@@ -67,40 +59,32 @@ function onDelete(e:MouseEvent):void
     ondelete(session);
 }
 
-/** clicked duplicate button. do action based on if duplicate menu is showing */
-function onDuplicate(e:MouseEvent):void
+/** clicked button to submit duplication. do the duplicate */
+function onDuplicate(e?:MouseEvent):void
 {
-    e.preventDefault();
-    e.stopPropagation();
-
-    // if menu not showing, show the menu, and set the title select box contents
-    // to the current session's title.
-    if (!duplicateMenuShowing)
+    if (e)
     {
-        duplicateTitle=session.title;
-        duplicateMenuShowing=true;
+        e.preventDefault();
+        e.stopPropagation();
     }
 
-    // otherwise, the duplicate menu was already showing. perform the duplication using
+    // perform the duplication using
     // the duplicate menu textbox contents as the title. if the textbox was empty,
     // generate a title.
     // then, hide the duplicate menu.
-    else
+    var newTitle:string=duplicateTitle.trim();
+
+    if (newTitle.length==0)
     {
-        var newTitle:string=duplicateTitle.trim();
-
-        if (newTitle.length==0)
-        {
-            newTitle=createSessionTitle(session.originDirs);
-        }
-
-        onduplicate(
-            $state.snapshot(session),
-            newTitle,
-        );
-
-        duplicateMenuShowing=false;
+        newTitle=createSessionTitle(session.originDirs);
     }
+
+    onduplicate(
+        $state.snapshot(session),
+        newTitle,
+    );
+
+    duplicateMenuShowing=false;
 }
 
 /** clicked on the box. navigate page to viewer url */
@@ -118,6 +102,23 @@ function onClick():void
 function onDupeMenuClick(e:MouseEvent):void
 {
     e.stopPropagation();
+}
+
+/** clicked on dupe button. toggle the dupe menu */
+function onDupeMenuToggleClick(e:MouseEvent):void
+{
+    e.stopPropagation();
+    duplicateMenuShowing=!duplicateMenuShowing;
+    duplicateTitle=session.title;
+}
+
+/** dupe input key down. enter key submits as if pressed submit duplicate button */
+function onDupeInputKeyDown(e:KeyboardEvent):void
+{
+    if (e.key=="Enter")
+    {
+        onDuplicate();
+    }
 }
 </script>
 
@@ -138,7 +139,7 @@ function onDupeMenuClick(e:MouseEvent):void
             <div class="box-button" onclick={onDelete}>
                 🗑
             </div>
-            <div class="box-button" onclick={onDuplicate}>
+            <div class="box-button" onclick={onDupeMenuToggleClick}>
                 ⎘
             </div>
         </div>
@@ -158,10 +159,11 @@ function onDupeMenuClick(e:MouseEvent):void
         <span class="faded">Items List</span>
     </div>
 
-    <div class="dupe-menu" onclick={onDupeMenuClick}>
+    <div class="dupe-menu" onclick={onDupeMenuClick} class:hidden={!duplicateMenuShowing}>
         <label>New Title:</label>
-        <input type="text" class="dupe-input"/>
-        <div class="box-button">✓</div>
+        <input type="text" class="dupe-input" bind:value={duplicateTitle}
+            onkeydown={onDupeInputKeyDown}/>
+        <div class="box-button" onclick={onDuplicate}>✓</div>
     </div>
 </div>
 
