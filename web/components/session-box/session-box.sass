@@ -26,28 +26,6 @@
             align-items: center
             padding-left: 15px
 
-            .box-button
-                height: 30px
-                width: 30px
-                display: inline-flex
-                background: #344048
-                align-items: center
-                justify-content: center
-                border: 1px solid #4f6270
-                border-radius: 4px
-                font-size: 20px
-                vertical-align: top
-                margin-right: 7px
-                cursor: pointer
-
-                &:hover
-                    background: #3e4952
-                    border-color: #73838f
-
-                &:active
-                    background: #454f56
-                    border-color: #73838f
-
         .left
             flex: 1
 
@@ -76,6 +54,49 @@
         .faded
             opacity: .9
             font-weight: 300
+            font-size: 13px
+
+    .box-button
+        height: 30px
+        width: 30px
+        display: inline-flex
+        background: #344048
+        align-items: center
+        justify-content: center
+        border: 1px solid #4f6270
+        border-radius: 4px
+        font-size: 20px
+        vertical-align: top
+        margin-right: 7px
+        cursor: pointer
+
+        &:hover
+            background: #3e4952
+            border-color: #73838f
+
+        &:active
+            background: #454f56
+            border-color: #73838f
+
+    .dupe-menu
+        padding-top: 7px
+        margin-top: 7px
+        border-top: 1px solid #59616b
+        text-align: right
+
+        label
+            font-size: 14px
+
+        input.dupe-input
+            background: #212624
+            outline: none
+            border: none
+            color: white
+            font-family: inherit
+            padding: 7px 7px 8px
+            width: 25%
+            border: 1px solid #515b66
+            border-radius: 3px
             font-size: 13px
 
     &.complete

@@ -113,6 +113,12 @@ function onClick():void
 
     window.location.href=viewerUrl;
 }
+
+/** cancel click propagation inside dupe menu */
+function onDupeMenuClick(e:MouseEvent):void
+{
+    e.stopPropagation();
+}
 </script>
 
 <style lang="sass">
@@ -150,6 +156,12 @@ function onClick():void
         </span>
         <span class="faded">•</span>
         <span class="faded">Items List</span>
+    </div>
+
+    <div class="dupe-menu" onclick={onDupeMenuClick}>
+        <label>New Title:</label>
+        <input type="text" class="dupe-input"/>
+        <div class="box-button">✓</div>
     </div>
 </div>
 
