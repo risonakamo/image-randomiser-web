@@ -24,6 +24,8 @@ var duplicateMenuShowing:boolean=$state(false);
 /** contents of the duplicate menu title textbox */
 var duplicateTitle:string=$state("");
 
+var dupeInputElement:HTMLDivElement|null=$state(null);
+
 /** url to go to randomiser page targetting this session */
 // var randomiserUrl:string=$derived(createRandomiserUrl(session.id));
 /** if this session is marked as complete */
@@ -50,6 +52,14 @@ var updateTimeRelative:string=$derived(humanize(
         round:true,
     }
 ));
+
+// on dupe menu showing changed, try to focus on input element when it appears
+$effect(()=>{
+    if (duplicateMenuShowing && dupeInputElement)
+    {
+        dupeInputElement.focus();
+    }
+});
 
 /** clicked delete button. call delete event with the session */
 function onDelete(e:MouseEvent):void
@@ -162,7 +172,7 @@ function onDupeInputKeyDown(e:KeyboardEvent):void
     <div class="dupe-menu" onclick={onDupeMenuClick} class:hidden={!duplicateMenuShowing}>
         <label>New Title:</label>
         <input type="text" class="dupe-input" bind:value={duplicateTitle}
-            onkeydown={onDupeInputKeyDown}/>
+            onkeydown={onDupeInputKeyDown} bind:this={dupeInputElement}/>
         <div class="box-button" onclick={onDuplicate}>✓</div>
     </div>
 </div>

@@ -1,6 +1,6 @@
 .session-box
     border: 1px solid #3d4a53
-    padding: 5px 15px
+    padding: 10px 15px
     margin: 10px 0
     background: #292e33
     border-radius: 8px
@@ -17,13 +17,14 @@
 
     .top
         display: flex
-        height: 40px
+        min-height: 40px
+        margin-bottom: 5px
 
         .right
             font-size: 0
             display: flex
             justify-content: center
-            align-items: center
+            align-items: flex-start
             padding-left: 15px
 
         .left
@@ -83,6 +84,7 @@
         margin-top: 7px
         border-top: 1px solid #59616b
         text-align: right
+        cursor: default
 
         label
             font-size: 14px
@@ -120,9 +122,10 @@
         &:active
             background: #2a3638
 
-    &:hover
+    // hovering, but also not hovering over certain childen
+    &:hover:not(:has(.box-button:hover,.dupe-menu:hover))
         border-color: #546673
         background: #30363b
 
-    &:active
+    &:active:not(:has(.box-button:hover,.dupe-menu:hover))
         background: #353b3e
