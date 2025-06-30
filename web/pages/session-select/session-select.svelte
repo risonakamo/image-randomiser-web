@@ -55,9 +55,9 @@ async function onResetStore():Promise<void>
 
 <div class="contain">
     <div class="controls">
-        <a href="./session-create.html"><div class="create-button">
+        <div class="create-button">
             + Create
-        </div></a>
+        </div>
     </div>
 
     <div class="session-list">
