@@ -35,6 +35,12 @@ async function onResetStore():Promise<void>
     await resetStore();
     sessions=await getSessions();
 }
+
+/** clicked create button. go to create page */
+function onCreateClick():void
+{
+    window.location.href="./session-create.html";
+}
 </script>
 
 <style lang="sass">
@@ -55,7 +61,7 @@ async function onResetStore():Promise<void>
 
 <div class="contain">
     <div class="controls">
-        <div class="create-button">
+        <div class="create-button" onclick={onCreateClick}>
             + Create
         </div>
     </div>
