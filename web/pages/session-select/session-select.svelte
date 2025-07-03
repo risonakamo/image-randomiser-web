@@ -47,18 +47,6 @@ function onCreateClick():void
     @use "./session-select.sass"
 </style>
 
-<!-- <div class="controls">
-    <h2><a href="./session-create.html">create session</a></h2>
-    <h2><a href="javascript:void(0)" onclick={onResetStore}>reset storage</a></h2>
-</div>
-
-<div class="sessions">
-    {#each sortedSessions as session (session.id)}
-        <SessionBox session={session} ondelete={onSessionDelete}
-            onduplicate={onSessionDuplicate}/>
-    {/each}
-</div> -->
-
 <div class="contain">
     <div class="controls">
         <div class="create-button" onclick={onCreateClick}>
