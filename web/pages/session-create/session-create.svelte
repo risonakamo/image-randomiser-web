@@ -148,7 +148,22 @@ function onAddRemFolder(remFolderPath:string)
     @use "./session-create.sass"
 </style>
 
-<a href="./session-select.html">Back to Session Select</a>
+<section class="header-zone">
+    <a href="./session-select.html">Back to Session Select</a>
+</section>
+
+<section class="title-zone">
+    <input type="text" placeholder="New Session Title"/>
+    <div class="create-button">
+        Create Session
+    </div>
+</section>
+
+<section class="items-zone">
+
+</section>
+
+<!-- <a href="./session-select.html">Back to Session Select</a>
 
 <h1>Create Session</h1>
 
@@ -200,4 +215,4 @@ function onAddRemFolder(remFolderPath:string)
 
 <h2>
     <button onclick={onCreateClick} disabled={createDisabled}>Create</button>
-</h2>
+</h2> -->

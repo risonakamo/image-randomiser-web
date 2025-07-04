@@ -1,4 +1,46 @@
-.drop-zone
-    width: 400px
-    height: 200px
-    border: 1px solid black
+@use "@/css/theme.sass"
+@use "@/css/shared.sass"
+
+:global
+    html
+        background: #212624
+        color: #eaeaea
+        font-family: "work sans"
+
+    html,body
+        height: 100%
+        width: 100%
+        margin: 0
+
+    body
+        display: flex
+        flex-direction: column
+
+    a
+        color: #eaeaea
+
+section.title-zone
+    height: 120px
+    display: flex
+    align-items: center
+    justify-content: center
+
+    input
+        background: transparent
+        color: #eaeaea
+        font-family: inherit
+        font-size: 18px
+        border: 1px solid #898faf
+        padding: 6px 7px
+        width: 340px
+        border-radius: 4px
+        background: #16161638
+
+    .create-button
+        @include shared.create-button
+        font-size: 14px
+        padding: 9.2px 10px
+        margin-left: 10px
+
+section.items-zone
+    flex: 1
