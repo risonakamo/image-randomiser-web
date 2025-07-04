@@ -4,6 +4,7 @@ import {onMount} from "svelte";
 
 import {absPathDirs, getItemCount, getRememberedFolders,
     newSession} from "@/api/bridge";
+import RecentItemBox from "@/components/recent-item-box/recent-item-box.svelte";
 
 /** paths of selected items */
 var selecteditems:string[]=$state([]);
@@ -160,7 +161,13 @@ function onAddRemFolder(remFolderPath:string)
 </section>
 
 <section class="items-zone">
+    <div class="recent-items-contain">
+        <RecentItemBox/>
+    </div>
 
+    <div class="selected-items-contain">
+
+    </div>
 </section>
 
 <!-- <a href="./session-select.html">Back to Session Select</a>
