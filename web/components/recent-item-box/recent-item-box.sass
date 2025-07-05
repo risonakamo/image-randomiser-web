@@ -1,0 +1,55 @@
+.recent-item-box
+    width: 35%
+    display: flex
+    background: #232a3d
+    border: 1px solid #97979736
+    border-radius: 8px
+    padding: 6px 0px
+
+    .count
+        font-size: 20px
+        display: flex
+        align-items: center
+        padding: 0 15px
+        color: #e794ff
+
+    .info
+        .title
+            font-size: 19px
+            color: #f7dea0
+            margin-bottom: 5px
+
+        .path
+            font-size: 12px
+            /* letter-spacing: -0.8px */
+            font-family: monospace
+            opacity: 0.7
+            line-height: 1
+            word-break: break-all
+
+    .button-contain
+        padding: 0 20px
+        display: flex
+        align-items: center
+        justify-content: center
+
+        .button
+            border: 1px solid #c5c4c4
+            border-radius: 5px
+            padding: 5px 10px
+            color: #c5c4c4
+            user-select: none
+            cursor: pointer
+
+            &:hover
+                background: #ffffff24
+                color: #cfcece
+
+            &:active
+                color: #ffffff
+                border-color: #ededed
+
+    &.added
+        opacity: 0.8
+        background: #272e40
+        border-color: #d7d3d336

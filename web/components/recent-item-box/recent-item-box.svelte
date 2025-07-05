@@ -16,7 +16,9 @@
         <div class="path">C:\Users\ngokn1\Desktop\image-randomiser\image-randomiser-web\web\components\recent-item-box\</div>
     </div>
 
-    <div class="button">
-        Add
+    <div class="button-contain">
+        <div class="button">
+            Add
+        </div>
     </div>
 </div>
