@@ -70,6 +70,14 @@ function addToSelectedItems(newItems:string[]):void
     selecteditems=_.uniq(_.concat(selecteditems,newItems));
 }
 
+/** search selected items for a path */
+function selectedItemsHas(path:string):boolean
+{
+    return !!_.find(selecteditems,(item:string):boolean=>{
+        return item==path;
+    });
+}
+
 /** dropped an item. add it to selected items after converting it into normal file path */
 async function onDrop(e:DragEvent):Promise<void>
 {
@@ -161,7 +169,8 @@ function onAddRemFolder(remFolder:RememberedFolder)
 <section class="items-zone">
     <div class="recent-items-contain">
         {#each rememberedFolders as remFolder (remFolder.path)}
-            <RecentItemBox recentItemData={remFolder} onAdd={onAddRemFolder}/>
+            <RecentItemBox recentItemData={remFolder} onAdd={onAddRemFolder}
+                added={selectedItemsHas(remFolder.path)}/>
         {/each}
     </div>
 
