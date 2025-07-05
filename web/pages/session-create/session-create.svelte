@@ -137,11 +137,9 @@ async function onCreateClick():Promise<void>
 
 /** clicked to add a rem folder. call func to update selected items with
  *  the selected rem folder */
-function onAddRemFolder(remFolderPath:string)
+function onAddRemFolder(remFolder:RememberedFolder)
 {
-    return ()=>{
-        addToSelectedItems([remFolderPath]);
-    };
+    addToSelectedItems([remFolder.path]);
 }
 </script>
 
@@ -162,7 +160,9 @@ function onAddRemFolder(remFolderPath:string)
 
 <section class="items-zone">
     <div class="recent-items-contain">
-        <RecentItemBox/>
+        {#each rememberedFolders as remFolder (remFolder.path)}
+            <RecentItemBox recentItemData={remFolder} onAdd={onAddRemFolder}/>
+        {/each}
     </div>
 
     <div class="selected-items-contain">
