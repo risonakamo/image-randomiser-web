@@ -122,8 +122,8 @@ function onDragOver(e:DragEvent):void
 /** remove item from selected items. give path of item */
 function onDeleteItem(item:string)
 {
-    selecteditems=_.remove(selecteditems,(selectedItem:string):boolean=>{
-        return item==selectedItem;
+    selecteditems=_.reject(selecteditems,(selectedItem2:string):boolean=>{
+        return item==selectedItem2;
     });
 }
 
