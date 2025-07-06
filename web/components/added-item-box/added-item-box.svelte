@@ -1,26 +1,36 @@
 <script lang="ts">
 var {
-    recentItemData,
+    count,
+    title,
+    path,
+
+    actionText,
+
     added,
-    onAdd,
+    onAction,
 }:{
-    recentItemData:RememberedFolder
+    count:number
+    title:string
+    path:string
+
+    actionText:string
+
     // visual add state
     added:boolean
 
-    // clicked on add button for this item
-    onAdd(itemData:RememberedFolder):void
+    // clicked on button for this item
+    onAction(path:string):void
 }=$props();
 
 /** clicked add button. trigger add event, unless already added, then do nothing */
-function onAdd2():void
+function onAction2():void
 {
     if (added)
     {
         return;
     }
 
-    onAdd(recentItemData);
+    onAction(path);
 }
 </script>
 
@@ -30,17 +40,17 @@ function onAdd2():void
 
 <div class="added-item-box" class:added={added}>
     <div class="count">
-        {recentItemData.timesUsed}
+        {count}
     </div>
 
     <div class="info">
-        <div class="title">{recentItemData.title}</div>
-        <div class="path">{recentItemData.path}</div>
+        <div class="title">{title}</div>
+        <div class="path">{path}</div>
     </div>
 
     <div class="button-contain">
-        <div class="button" onclick={onAdd2}>
-            Add
+        <div class="button" onclick={onAction2}>
+            {actionText}
         </div>
     </div>
 </div>
