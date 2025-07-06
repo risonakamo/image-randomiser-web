@@ -5,6 +5,7 @@ var {
     path,
 
     actionText,
+    addedText,
 
     added,
     selectedItem,
@@ -16,6 +17,7 @@ var {
     path:string
 
     actionText:string
+    addedText:string
 
     // visual add state
     added:boolean
@@ -52,8 +54,12 @@ function onAction2():void
     </div>
 
     <div class="button-contain">
-        <div class="button" onclick={onAction2}>
-            {actionText}
-        </div>
+        {#if !added}
+            <div class="button" onclick={onAction2}>
+                {actionText}
+            </div>
+        {:else}
+            {addedText}
+        {/if}
     </div>
 </div>

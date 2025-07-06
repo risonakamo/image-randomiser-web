@@ -56,8 +56,6 @@ onMount(()=>{
 // get items count on selected items changing
 $effect(()=>{
     (async ()=>{
-        console.log("getting item count",selecteditems);
-
         itemsCount=await getItemCount(
             $state.snapshot(selecteditems),
         );
@@ -177,6 +175,7 @@ function onAddRemFolder(remFolderPath:string)
                     added={selectedItemsHas(remFolder.path)}
                     onAction={onAddRemFolder}
                     selectedItem={false}
+                    addedText="Added"
                 />
             {/each}
         </div>
@@ -194,6 +193,7 @@ function onAddRemFolder(remFolderPath:string)
                     added={false}
                     onAction={onDeleteItem}
                     selectedItem={true}
+                    addedText=""
                 />
             {/each}
         </div>
