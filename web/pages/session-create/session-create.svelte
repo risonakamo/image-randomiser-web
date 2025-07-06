@@ -166,29 +166,35 @@ function onAddRemFolder(remFolderPath:string)
 
 <section class="items-zone">
     <div class="recent-items-contain">
-        {#each rememberedFolders as remFolder (remFolder.path)}
-            <AddedItemBox
-                count={remFolder.timesUsed}
-                title={remFolder.title}
-                path={remFolder.path}
-                actionText="Add"
-                added={selectedItemsHas(remFolder.path)}
-                onAction={onAddRemFolder}
-            />
-        {/each}
+        <h2>Recent Items</h2>
+        <div class="items">
+            {#each rememberedFolders as remFolder (remFolder.path)}
+                <AddedItemBox
+                    count={remFolder.timesUsed}
+                    title={remFolder.title}
+                    path={remFolder.path}
+                    actionText="Add"
+                    added={selectedItemsHas(remFolder.path)}
+                    onAction={onAddRemFolder}
+                />
+            {/each}
+        </div>
     </div>
 
     <div class="selected-items-contain">
-        {#each selectedItemsWithCount as item (item.itemName)}
-            <AddedItemBox
-                count={item.countText}
-                title={item.itemName}
-                path=""
-                actionText="Remove"
-                added={false}
-                onAction={onDeleteItem}
-            />
-        {/each}
+        <h2>Added Items</h2>
+        <div class="items">
+            {#each selectedItemsWithCount as item (item.itemName)}
+                <AddedItemBox
+                    count={item.countText}
+                    title={item.itemName}
+                    path=""
+                    actionText="Remove"
+                    added={false}
+                    onAction={onDeleteItem}
+                />
+            {/each}
+        </div>
     </div>
 </section>
 
