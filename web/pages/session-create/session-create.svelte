@@ -176,6 +176,7 @@ function onAddRemFolder(remFolderPath:string)
                     actionText="Add"
                     added={selectedItemsHas(remFolder.path)}
                     onAction={onAddRemFolder}
+                    selectedItem={false}
                 />
             {/each}
         </div>
@@ -187,11 +188,12 @@ function onAddRemFolder(remFolderPath:string)
             {#each selectedItemsWithCount as item (item.itemName)}
                 <AddedItemBox
                     count={item.countText}
-                    title={item.itemName}
-                    path=""
+                    title=""
+                    path={item.itemName}
                     actionText="Remove"
                     added={false}
                     onAction={onDeleteItem}
+                    selectedItem={true}
                 />
             {/each}
         </div>

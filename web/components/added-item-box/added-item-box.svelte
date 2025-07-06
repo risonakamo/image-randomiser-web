@@ -7,6 +7,8 @@ var {
     actionText,
 
     added,
+    selectedItem,
+
     onAction,
 }:{
     count:number|string
@@ -17,6 +19,7 @@ var {
 
     // visual add state
     added:boolean
+    selectedItem:boolean
 
     // clicked on button for this item
     onAction(path:string):void
@@ -38,7 +41,7 @@ function onAction2():void
     @use "./added-item-box.sass"
 </style>
 
-<div class="added-item-box" class:added={added}>
+<div class="added-item-box" class:added={added} class:selected-item={selectedItem}>
     <div class="count">
         {count}
     </div>
