@@ -25,10 +25,10 @@ function onAdd2():void
 </script>
 
 <style lang="sass">
-    @use "./recent-item-box.sass"
+    @use "./added-item-box.sass"
 </style>
 
-<div class="recent-item-box" class:added={added}>
+<div class="added-item-box" class:added={added}>
     <div class="count">
         {recentItemData.timesUsed}
     </div>

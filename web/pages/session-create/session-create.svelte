@@ -4,7 +4,7 @@ import {onMount} from "svelte";
 
 import {absPathDirs, getItemCount, getRememberedFolders,
     newSession} from "@/api/bridge";
-import RecentItemBox from "@/components/recent-item-box/recent-item-box.svelte";
+import AddedItemBox from "@/components/added-item-box/added-item-box.svelte";
 
 /** paths of selected items */
 var selecteditems:string[]=$state([]);
@@ -169,7 +169,7 @@ function onAddRemFolder(remFolder:RememberedFolder)
 <section class="items-zone">
     <div class="recent-items-contain">
         {#each rememberedFolders as remFolder (remFolder.path)}
-            <RecentItemBox recentItemData={remFolder} onAdd={onAddRemFolder}
+            <AddedItemBox recentItemData={remFolder} onAdd={onAddRemFolder}
                 added={selectedItemsHas(remFolder.path)}/>
         {/each}
     </div>
