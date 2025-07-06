@@ -119,14 +119,12 @@ function onDragOver(e:DragEvent):void
     e.preventDefault();
 }
 
-/** remove item from selected items */
+/** remove item from selected items. give path of item */
 function onDeleteItem(item:string)
 {
-    return ()=>{
-        _.remove(selecteditems,(selectedItem:string):boolean=>{
-            return item==selectedItem;
-        });
-    };
+    selecteditems=_.remove(selecteditems,(selectedItem:string):boolean=>{
+        return item==selectedItem;
+    });
 }
 
 /** clicked create. send request to create session. on complete, change page to session
@@ -181,7 +179,16 @@ function onAddRemFolder(remFolderPath:string)
     </div>
 
     <div class="selected-items-contain">
-
+        {#each selectedItemsWithCount as item (item.itemName)}
+            <AddedItemBox
+                count={item.countText}
+                title={item.itemName}
+                path=""
+                actionText="Remove"
+                added={false}
+                onAction={onDeleteItem}
+            />
+        {/each}
     </div>
 </section>
 

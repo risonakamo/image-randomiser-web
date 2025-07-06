@@ -9,7 +9,7 @@ var {
     added,
     onAction,
 }:{
-    count:number
+    count:number|string
     title:string
     path:string
 
