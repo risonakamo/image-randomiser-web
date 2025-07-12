@@ -97,6 +97,7 @@ function selectedItemsAsStrings():string[]
     });
 }
 
+// --- drop zone drag
 /** dropped an item. add it to selected items after converting it into normal file path */
 async function onDrop(e:DragEvent):Promise<void>
 {
@@ -137,6 +138,7 @@ function onDragOver(e:DragEvent):void
 {
     e.preventDefault();
 }
+// --- end drop zone drag
 
 /** remove item from selected items. give path of item */
 function onDeleteItem(item:string)
@@ -176,6 +178,7 @@ function onBackButton():void
     window.location.href="./session-select.html";
 }
 
+// --- window drag
 function onWindowDragIn(e:DragEvent):void
 {
     e.preventDefault();
@@ -204,6 +207,7 @@ function onWindowDragDrop(e:DragEvent):void
     e.preventDefault();
     windowDragCounter=0;
 }
+// --- end window drag
 </script>
 
 <style lang="sass">
@@ -263,7 +267,11 @@ function onWindowDragDrop(e:DragEvent):void
 </section>
 
 {#if windowDraggedOver}
-    <div class="drop-zone"></div>
+    <div class="drop-zone"
+        ondragenter={onDragIn} ondragleave={onDragOut}
+        ondragend={onDragEnd} ondragover={onDragOver}
+        ondrop={onDrop}
+    ></div>
 {/if}
 
 <svelte:window
