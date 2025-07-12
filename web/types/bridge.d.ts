@@ -11,7 +11,7 @@ interface Bridge
     getTestSession():Promise<RandomisationSession>
     launchItem(item:string,program:string):Promise<void>
     getPrograms():Promise<string[]>
-    absPathDirs(files:File[]):Promise<string[]>
+    absPathDirs(files:File[]):Promise<DirItem[]>
     newSession(folders:string[],title:string):Promise<void>
     getSessions():Promise<RandomisationSession[]>
     deleteSession(deleteId:string):Promise<RandomisationSession[]>
@@ -71,4 +71,11 @@ interface ItemCounts
 {
     individualCounts:ItemCountsDict
     total:number
+}
+
+/** result of abspath dirs. represents a single dir path */
+interface DirItem
+{
+    path:string
+    name:string
 }

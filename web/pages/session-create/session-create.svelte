@@ -7,7 +7,7 @@ import {absPathDirs, getItemCount, getRememberedFolders,
 import AddedItemBox from "@/components/added-item-box/added-item-box.svelte";
 
 /** paths of selected items */
-var selecteditems:string[]=$state([]);
+var selecteditems:DirItem[]=$state([]);
 
 /** basic drag detection vars */
 var dragCounter:number=$state(0);
@@ -29,18 +29,18 @@ var createDisabled:boolean=$derived(itemsCount.total==0);
 
 /** the select items, but with count number */
 var selectedItemsWithCount:ItemWithCount[]=$derived.by(()=>{
-    return _.map(selecteditems,(item:string):ItemWithCount=>{
+    return _.map(selecteditems,(item:DirItem):ItemWithCount=>{
         var count:number=-1;
         var countText:string="...";
 
-        if (item in itemsCount.individualCounts)
+        if (item.path in itemsCount.individualCounts)
         {
-            count=itemsCount.individualCounts[item];
+            count=itemsCount.individualCounts[item.path];
             countText=count.toString();
         }
 
         return {
-            itemName:item,
+            itemName:item.path,
             count,
             countText,
         };
@@ -57,22 +57,35 @@ onMount(()=>{
 $effect(()=>{
     (async ()=>{
         itemsCount=await getItemCount(
-            $state.snapshot(selecteditems),
+            selectedItemsAsStrings(),
         );
     })();
 });
 
 /** add items to selected items. deduplicates */
-function addToSelectedItems(newItems:string[]):void
+function addToSelectedItems(newItems:DirItem[]):void
 {
-    selecteditems=_.uniq(_.concat(selecteditems,newItems));
+    selecteditems=_(selecteditems)
+        .concat(newItems)
+        .uniqBy((item:DirItem):string=>{
+            return item.path;
+        })
+        .value();
 }
 
 /** search selected items for a path */
 function selectedItemsHas(path:string):boolean
 {
-    return !!_.find(selecteditems,(item:string):boolean=>{
-        return item==path;
+    return !!_.find(selecteditems,(item:DirItem):boolean=>{
+        return item.path==path;
+    });
+}
+
+/** convert selected items into paths array */
+function selectedItemsAsStrings():string[]
+{
+    return _.map($state.snapshot(selecteditems),(item:DirItem):string=>{
+        return item.path;
     });
 }
 
@@ -86,7 +99,7 @@ async function onDrop(e:DragEvent):Promise<void>
         return;
     }
 
-    const filePaths:string[]=await absPathDirs(Array.from(e.dataTransfer.files));
+    const filePaths:DirItem[]=await absPathDirs(Array.from(e.dataTransfer.files));
 
     addToSelectedItems(filePaths);
 }
@@ -120,8 +133,8 @@ function onDragOver(e:DragEvent):void
 /** remove item from selected items. give path of item */
 function onDeleteItem(item:string)
 {
-    selecteditems=_.reject(selecteditems,(selectedItem2:string):boolean=>{
-        return item==selectedItem2;
+    selecteditems=_.reject(selecteditems,(selectedItem2:DirItem):boolean=>{
+        return item==selectedItem2.path;
     });
 }
 
@@ -132,7 +145,7 @@ async function onCreateClick():Promise<void>
     var title:string=titleText.trim();
 
     await newSession(
-        $state.snapshot(selecteditems),
+        selectedItemsAsStrings(),
         title,
     );
 
@@ -141,9 +154,12 @@ async function onCreateClick():Promise<void>
 
 /** clicked to add a rem folder. call func to update selected items with
  *  the selected rem folder */
-function onAddRemFolder(remFolderPath:string)
+function onAddRemFolder(remFolderPath:string,remFolderName:string)
 {
-    addToSelectedItems([remFolderPath]);
+    addToSelectedItems([{
+        path:remFolderPath,
+        name:remFolderName,
+    }]);
 }
 </script>
 

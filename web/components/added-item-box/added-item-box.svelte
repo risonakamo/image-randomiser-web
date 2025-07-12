@@ -24,7 +24,7 @@ var {
     selectedItem:boolean
 
     // clicked on button for this item
-    onAction(path:string):void
+    onAction(path:string,title:string):void
 }=$props();
 
 /** clicked add button. trigger add event, unless already added, then do nothing */
@@ -35,7 +35,7 @@ function onAction2():void
         return;
     }
 
-    onAction(path);
+    onAction(path,title);
 }
 </script>
 
