@@ -78,13 +78,13 @@ section.items-zone
     flex: 1
     display: flex
     flex-direction: row
-    padding: 0 20px
-    overflow: auto
+    overflow: hidden
 
     & > div
         flex: 1
         display: flex
         flex-direction: column
+        padding-left: 20px
 
         h2
             margin: 0
@@ -95,6 +95,8 @@ section.items-zone
 
         .items
             flex: 1
+            overflow: auto
+            padding: 12px 0
 
 .drop-zone
     position: absolute
