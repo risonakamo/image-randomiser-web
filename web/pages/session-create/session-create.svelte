@@ -276,7 +276,9 @@ function onWindowDragDrop(e:DragEvent):void
         ondragenter={onDragIn} ondragleave={onDragOut}
         ondragend={onDragEnd} ondragover={onDragOver}
         ondrop={onDrop}
-    ></div>
+    >
+        <h2>+ Drop Items</h2>
+    </div>
 {/if}
 
 <svelte:window
