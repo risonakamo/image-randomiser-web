@@ -162,6 +162,15 @@ async function onCreateClick():Promise<void>
     window.location.href="session-select.html";
 }
 
+/** press enter in input text box to do create action */
+function onCreateInputKey(e:KeyboardEvent):void
+{
+    if (e.key=="Enter")
+    {
+        onCreateClick();
+    }
+}
+
 /** clicked to add a rem folder. call func to update selected items with
  *  the selected rem folder */
 function onAddRemFolder(remFolderPath:string,remFolderName:string)
@@ -223,8 +232,9 @@ function onWindowDragDrop(e:DragEvent):void
 
 <section class="title-zone">
     <div class="top">
-        <input type="text" placeholder="New Session Title"/>
-        <div class="create-button">
+        <input type="text" placeholder="New Session Title" onkeydown={onCreateInputKey}
+            bind:value={titleText}/>
+        <div class="create-button" onclick={onCreateClick}>
             Create Session
         </div>
     </div>
