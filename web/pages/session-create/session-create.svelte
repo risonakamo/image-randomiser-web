@@ -222,9 +222,14 @@ function onWindowDragDrop(e:DragEvent):void
 </section>
 
 <section class="title-zone">
-    <input type="text" placeholder="New Session Title"/>
-    <div class="create-button">
-        Create Session
+    <div class="top">
+        <input type="text" placeholder="New Session Title"/>
+        <div class="create-button">
+            Create Session
+        </div>
+    </div>
+    <div class="instructions">
+        <p>⇧📁 Drag in Folders to Add</p>
     </div>
 </section>
 

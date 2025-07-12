@@ -47,23 +47,32 @@ section.title-zone
     display: flex
     align-items: center
     justify-content: center
+    flex-direction: column
 
-    input
-        background: transparent
-        color: #eaeaea
-        font-family: inherit
-        font-size: 18px
-        border: 1px solid #898faf
-        padding: 6px 7px
-        width: 340px
-        border-radius: 4px
-        background: #16161638
+    .top
+        input
+            background: transparent
+            color: #eaeaea
+            font-family: inherit
+            font-size: 18px
+            border: 1px solid #898faf
+            padding: 6px 7px
+            width: 340px
+            border-radius: 4px
+            background: #16161638
 
-    .create-button
-        @include shared.create-button
-        font-size: 14px
-        padding: 9.2px 10px
-        margin-left: 10px
+        .create-button
+            @include shared.create-button
+            font-size: 14px
+            padding: 9.2px 10px
+            margin-left: 10px
+
+    .instructions
+        margin-top: 12px
+
+        p
+            margin: 0
+            font-size: 14px
 
 section.items-zone
     flex: 1
