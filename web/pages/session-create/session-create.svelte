@@ -6,16 +6,17 @@ import {absPathDirs, getItemCount, getRememberedFolders,
     newSession} from "@/api/bridge";
 import AddedItemBox from "@/components/added-item-box/added-item-box.svelte";
 
+
+// --- state
 /** paths of selected items */
 var selecteditems:DirItem[]=$state([]);
 
 /** basic drag detection vars */
 var dragCounter:number=$state(0);
+var draggedOver:boolean=$derived(dragCounter>0);
 
 /** value of title input text box */
 var titleText:string=$state("");
-
-// var draggedOver:boolean=$derived(dragCounter>0);
 
 /** current items count. updated async by effect */
 var itemsCount:ItemCounts=$state({
@@ -25,6 +26,11 @@ var itemsCount:ItemCounts=$state({
 
 var rememberedFolders:RememberedFolder[]=$state([]);
 
+var windowDragCounter:number=$state(0);
+var windowDraggedOver:boolean=$derived(windowDragCounter>0);
+
+
+// --- derived
 var createDisabled:boolean=$derived(itemsCount.total==0);
 
 /** the select items, but with count number */
@@ -46,6 +52,8 @@ var selectedItemsWithCount:ItemWithCount[]=$derived.by(()=>{
         };
     });
 });
+
+
 
 onMount(()=>{
     (async ()=>{
@@ -167,6 +175,35 @@ function onBackButton():void
 {
     window.location.href="./session-select.html";
 }
+
+function onWindowDragIn(e:DragEvent):void
+{
+    e.preventDefault();
+    windowDragCounter++;
+}
+
+function onWindowDragOut(e:DragEvent):void
+{
+    e.preventDefault();
+    windowDragCounter--;
+}
+
+function onWindowDragEnd(e:DragEvent):void
+{
+    e.preventDefault();
+    windowDragCounter=0;
+}
+
+function onWindowDragOver(e:DragEvent):void
+{
+    e.preventDefault();
+}
+
+function onWindowDragDrop(e:DragEvent):void
+{
+    e.preventDefault();
+    windowDragCounter=0;
+}
 </script>
 
 <style lang="sass">
@@ -224,6 +261,15 @@ function onBackButton():void
         </div>
     </div>
 </section>
+
+{#if windowDraggedOver}
+    <div class="drop-zone"></div>
+{/if}
+
+<svelte:window
+    ondragenter={onWindowDragIn} ondragleave={onWindowDragOut}
+    ondragend={onWindowDragEnd} ondragover={onWindowDragOver}
+    ondrop={onWindowDragDrop}/>
 
 <!-- <a href="./session-select.html">Back to Session Select</a>
 
