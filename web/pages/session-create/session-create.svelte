@@ -40,7 +40,7 @@ var selectedItemsWithCount:ItemWithCount[]=$derived.by(()=>{
         }
 
         return {
-            itemName:item.path,
+            item,
             count,
             countText,
         };
@@ -200,11 +200,11 @@ function onAddRemFolder(remFolderPath:string,remFolderName:string)
     <div class="selected-items-contain">
         <h2>Added Items</h2>
         <div class="items">
-            {#each selectedItemsWithCount as item (item.itemName)}
+            {#each selectedItemsWithCount as item (item.item.path)}
                 <AddedItemBox
                     count={item.countText}
-                    title=""
-                    path={item.itemName}
+                    title={item.item.name}
+                    path={item.item.path}
                     actionText="Remove"
                     added={false}
                     onAction={onDeleteItem}

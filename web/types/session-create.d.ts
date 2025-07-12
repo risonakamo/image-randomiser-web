@@ -4,8 +4,8 @@
  *  a count yet */
 interface ItemWithCount
 {
-    // a folder name
-    itemName:string
+    // a folder
+    item:DirItem
 
     // items in the folder
     count:number
