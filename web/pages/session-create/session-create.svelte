@@ -161,6 +161,12 @@ function onAddRemFolder(remFolderPath:string,remFolderName:string)
         name:remFolderName,
     }]);
 }
+
+/** clicked back button */
+function onBackButton():void
+{
+    window.location.href="./session-select.html";
+}
 </script>
 
 <style lang="sass">
@@ -168,7 +174,10 @@ function onAddRemFolder(remFolderPath:string,remFolderName:string)
 </style>
 
 <section class="header-zone">
-    <a href="./session-select.html">Back to Session Select</a>
+    <div class="back-button-contain" onclick={onBackButton}>
+        <div class="back-button">&lt;</div>
+        <span>Session Select</span>
+    </div>
 </section>
 
 <section class="title-zone">
