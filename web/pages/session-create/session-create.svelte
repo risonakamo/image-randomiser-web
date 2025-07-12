@@ -257,6 +257,7 @@ function onWindowDragDrop(e:DragEvent):void
                     onAction={onAddRemFolder}
                     selectedItem={false}
                     addedText="Added"
+                    countHoverText="Times Used"
                 />
             {/each}
         </div>
@@ -275,6 +276,7 @@ function onWindowDragDrop(e:DragEvent):void
                     onAction={onDeleteItem}
                     selectedItem={true}
                     addedText=""
+                    countHoverText="Number of Items"
                 />
             {/each}
         </div>

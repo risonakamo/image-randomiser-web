@@ -6,6 +6,7 @@ var {
 
     actionText,
     addedText,
+    countHoverText,
 
     added,
     selectedItem,
@@ -18,6 +19,7 @@ var {
 
     actionText:string
     addedText:string
+    countHoverText:string
 
     // visual add state
     added:boolean
@@ -44,7 +46,7 @@ function onAction2():void
 </style>
 
 <div class="added-item-box" class:added={added} class:selected-item={selectedItem}>
-    <div class="count">
+    <div class="count" title={countHoverText}>
         {count}
     </div>
 
