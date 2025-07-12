@@ -268,6 +268,9 @@ function onWindowDragDrop(e:DragEvent):void
                 />
             {/each}
         </div>
+        <div class="item-counts">
+            <h3>Total Items: <span class="count">{itemsCount.total}</span></h3>
+        </div>
     </div>
 </section>
 
